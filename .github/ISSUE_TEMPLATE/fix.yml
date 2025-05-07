@@ -1,0 +1,40 @@
+name: Bug Report
+title: "fix: "
+description: File a bug report
+body:
+  - type: textarea
+    attributes:
+      label: Description
+      description: Provide a detailed introduction to the issue itself, and why you consider it to be a bug.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected Behavior
+      description: Tell us what should happen.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Actual Behavior
+      description: Tell us what happens instead.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Possible Fix
+      description: Suggest a fix or reason for the bug.
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Steps to Reproduce
+      description: Provide an unambiguous set of steps to reproduce this bug.
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Context
+      description: How has this bug affected you? What were you trying to accomplish?
+    validations:
+      required: false

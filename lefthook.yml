@@ -1,0 +1,23 @@
+post-checkout:
+  commands:
+    install:
+      run: pnpm i --prefer-frozen-lockfile
+pre-commit:
+  commands:
+    biome:
+      run: pnpm biome check --write {staged_files} --no-errors-on-unmatched
+      stage_fixed: true
+commit-msg:
+  commands:
+    commitlint:
+      run: pnpx commitlint --edit {1}
+pre-push:
+  commands:
+    tsc:
+      run: pnpm tsc --noEmit
+    knip:
+      run: pnpm knip
+    dedupe:
+      run: pnpm dedupe --check
+    build:
+      run: pnpm next build

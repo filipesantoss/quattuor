@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+/* https://tweakcn.com/r/themes/mono.json */
+:root {
+  --background: hsl(0 0% 100%);
+  --foreground: hsl(0 0% 3.92%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: hsl(0 0% 3.92%);
+    --foreground: hsl(0 0% 98.04%);
+  }
+}

@@ -1,0 +1,22 @@
+name: Feature Request
+title: "feat: "
+description: Define requirements
+body:
+  - type: textarea
+    attributes:
+      label: Description
+      description: Provide a detailed description of the change or addition you are proposing.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Context
+      description: Why is this change important to you? How would you use it? How can it benefit other users?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Possible Implementation
+      description: Suggest an idea for implementing addition or change.
+    validations:
+      required: false
