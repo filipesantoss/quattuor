@@ -8,24 +8,24 @@ import { selectors } from "&/state/game";
 import { useSelector } from "&/state/store";
 
 export function Field({
-  id,
+  data,
 }: {
-  id: FieldProperties["id"];
+  data: FieldProperties;
 }) {
-  const shrine = useSelector((state) => selectors.shrineByFieldId(state, id));
-  const piece = useSelector((state) => selectors.pieceByFieldId(state, id));
-  const move = useSelector((state) => selectors.moveByFieldId(state, id));
+  const shrine = useSelector((state) => selectors.shrineByFieldId(state, data.id));
+  const move = useSelector((state) => selectors.moveByFieldId(state, data.id));
+  const piece = useSelector((state) => selectors.pieceByFieldId(state, data.id));
 
   if (shrine !== null) {
-    return <Shrine id={shrine.id} move={move} />;
+    return <Shrine data={shrine} move={move} />;
   }
 
   if (piece !== null) {
-    return <Piece id={piece.id} />;
+    return <Piece data={piece} />;
   }
 
   if (move !== null) {
-    return <Move x={move.dx} y={move.dy} />;
+    return <Move data={move} />;
   }
 
   return <div className="bg-secondary-foreground" />;

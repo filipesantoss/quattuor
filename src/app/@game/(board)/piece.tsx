@@ -9,19 +9,14 @@ import { DropletIcon, FlameIcon, MountainIcon, WindIcon } from "lucide-react";
 import { useMemo } from "react";
 
 export function Piece({
-  id,
+  data,
 }: {
-  id: PieceProperties["id"];
+  data: PieceProperties;
 }) {
-  const piece = useSelector((state) => state.game.pieces[id] ?? null);
-  if (piece === null) {
-    throw Error();
-  }
-
-  const active = useSelector((state) => selectors.isActiveElementByPieceId(state, id));
+  const active = useSelector((state) => selectors.isActiveElementByPieceId(state, data.id));
 
   const children = useMemo(() => {
-    switch (piece.id) {
+    switch (data.id) {
       case Elements.Fire:
         return (
           <FlameIcon
@@ -67,7 +62,7 @@ export function Piece({
       default:
         throw Error();
     }
-  }, [piece.id, active]);
+  }, [data.id, active]);
 
   return (
     <div

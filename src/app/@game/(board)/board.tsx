@@ -5,7 +5,7 @@ import { SIDE } from "&/state/initial";
 import { useSelector } from "&/state/store";
 
 export function Board() {
-  const ids = useSelector((state) => Object.keys(state.game.fields));
+  const fields = useSelector((state) => Object.values(state.game.fields));
 
   return (
     <main
@@ -15,8 +15,8 @@ export function Board() {
         gridTemplateRows: `repeat(${SIDE}, minmax(calc(var(--spacing)*4), 1fr))`,
       }}
     >
-      {ids.map((id) => (
-        <Field key={id} id={id} />
+      {fields.map((field) => (
+        <Field key={field.id} data={field} />
       ))}
     </main>
   );

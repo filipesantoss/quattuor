@@ -4,45 +4,35 @@ import { Move } from "%/@game/(board)/move";
 import type { Move as MoveProperties } from "&/entity/card";
 import { Elements } from "&/entity/piece";
 import type { Shrine as ShrineProperties } from "&/entity/shrine";
-import { useSelector } from "&/state/store";
 import cn from "classnames";
 import { useMemo } from "react";
 
 export function Shrine({
-  id,
+  data,
   move,
 }: {
-  id: ShrineProperties["id"];
+  data: ShrineProperties;
   move: MoveProperties | null;
 }) {
-  const shrine = useSelector((state) => state.game.shrines[id] ?? null);
-  if (shrine === null) {
-    throw Error();
-  }
-
   const children = useMemo(() => {
     return (
       <div
         className={cn("size-4 md:size-8 rounded-full", {
-          "bg-green-300": shrine.id === Elements.Earth,
-          "bg-red-300": shrine.id === Elements.Fire,
-          "bg-blue-300": shrine.id === Elements.Water,
-          "bg-slate-300": shrine.id === Elements.Wind,
+          "bg-green-300": data.id === Elements.Earth,
+          "bg-red-300": data.id === Elements.Fire,
+          "bg-blue-300": data.id === Elements.Water,
+          "bg-slate-300": data.id === Elements.Wind,
         })}
       />
     );
-  }, [shrine]);
+  }, [data]);
 
-  if (shrine.piece !== null) {
+  if (data.piece !== null) {
     return <div className="bg-secondary" />;
   }
 
   if (move !== null) {
-    return (
-      <Move x={move.dx} y={move.dy}>
-        {children}
-      </Move>
-    );
+    return <Move data={move}>{children}</Move>;
   }
 
   return <div className="grid place-content-center text-primary bg-secondary-foreground">{children}</div>;

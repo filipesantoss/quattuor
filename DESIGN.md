@@ -60,7 +60,7 @@
 
   5. **Winning and Progression**:
      * [x] Implement a win condition when all elements reach their shrine.
-     * [ ] Design a fail-state or "retry" option if an element is blocked by a stronger element.
+     * [ ] Design an "undo" option.
 
   6. **Auto-Generation Algorithm**:
      * [ ] Develop a system that ensures all generated levels are solvable with a unique solution.

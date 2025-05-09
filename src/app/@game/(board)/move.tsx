@@ -10,12 +10,10 @@ import type { PropsWithChildren } from "react";
  * @see https://www.w3.org/WAI/ARIA/apg/patterns/button/
  */
 export function Move({
-  x,
-  y,
+  data,
   children,
 }: PropsWithChildren<{
-  x: MoveProperties["dx"];
-  y: MoveProperties["dy"];
+  data: MoveProperties;
 }>) {
   const dispatch = useDispatch();
 
@@ -24,7 +22,7 @@ export function Move({
       aria-label="Move"
       className="grid place-content-center bg-primary motion-safe:animate-pulse focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-secondary-foreground"
       onClick={() => {
-        dispatch(actions.move({ dx: x, dy: y }));
+        dispatch(actions.move(data));
       }}
     >
       {children}
