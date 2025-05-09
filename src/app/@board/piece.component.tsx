@@ -4,8 +4,8 @@ import { EarthPiece } from "%/@board/piece.earth.component";
 import { FirePiece } from "%/@board/piece.fire.component";
 import { WaterPiece } from "%/@board/piece.water.component";
 import { WindPiece } from "%/@board/piece.wind.component";
-import { Elements } from "&/state/entity/piece";
 import type { Piece as Properties } from "&/state/entity/piece";
+import { Elements } from "&/state/entity/piece";
 import { selectors } from "&/state/game";
 import { useSelector } from "&/state/store";
 import { useMemo } from "react";
@@ -35,5 +35,5 @@ export function Piece({
     }
   }, [piece.id]);
 
-  return <div className="grid place-content-center text-primary *:size-8">{children}</div>;
+  return <div className="grid place-content-center text-primary bg-secondary-foreground *:size-8">{children}</div>;
 }
