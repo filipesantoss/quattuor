@@ -44,29 +44,27 @@
   1. **Grid and Board Setup**:
      * [x] 9x9 grid.
      * [x] 4 elements.
-     * [ ] Define how "marked" squares work and how elements interact with them.
+     * [ ] Define how "marked" fields work and how elements interact with them.
 
   2. **Element Movement**:
      * [x] Implement movement logic for each of the 16 beast cards.
      * [x] Implement turn-based system with defined turn order.
 
   3. **Card System**:
-     * [ ] Draw and assign movement cards to elements.
-     * [ ] Create a system for shuffling and random assignment of cards.
+     * [x] Draw and assign movement cards to elements.
      * [x] Ensure element movement respects the card order per element.
 
-  4. **Target System**:
-     * [ ] Assign a unique target point for each element.
-     * [ ] Implement logic for reaching the target square.
-     * [ ] Ensure that only solvable configurations are possible.
+  4. **Shrine System**:
+     * [x] Assign a unique target point for each element.
+     * [x] Implement logic for reaching the target field.
 
   5. **Winning and Progression**:
-     * [ ] Implement a win condition when all elements reach their target.
-     * [ ] Design a fail-state or "retry" option if an element is blocked by a stronger element.
+     * [x] Implement a win condition when all elements reach their shrine.
+     * [ ] Design an "undo" option.
 
   6. **Auto-Generation Algorithm**:
      * [ ] Develop a system that ensures all generated levels are solvable with a unique solution.
-     * [ ] Implement procedural generation of levels, where the game randomly places elements, targets, and movement cards, while ensuring a valid, single solution.
+     * [ ] Implement procedural generation of levels, where the game randomly places elements and shrines and draws cards.
 
 * **Non-Functional Requirements**:
 
@@ -97,7 +95,7 @@
   2. **Animation**:
 
      * [ ] Smooth element movement animations based on selected movement cards.
-     * [ ] Visual effects when an element marks a square or gains a new turn.
+     * [ ] Visual effects when an element marks a field or gains a new turn.
 
   3. **Audio Design**:
 

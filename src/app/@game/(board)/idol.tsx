@@ -1,27 +1,22 @@
 "use client";
 
-import type { Piece as Properties } from "&/state/entity/piece";
-import { Elements } from "&/state/entity/piece";
+import type { Idol as IdolProperties } from "&/entity/idol";
+import { Elements } from "&/entity/idol";
 import { selectors } from "&/state/game";
 import { useSelector } from "&/state/store";
 import cn from "classnames";
 import { DropletIcon, FlameIcon, MountainIcon, WindIcon } from "lucide-react";
 import { useMemo } from "react";
 
-export function Piece({
-  id,
+export function Idol({
+  data,
 }: {
-  id: Properties["id"];
+  data: IdolProperties;
 }) {
-  const piece = useSelector((state) => selectors.pieceByPieceId(state, id));
-  if (piece === null) {
-    throw Error();
-  }
-
-  const active = useSelector((state) => selectors.isActiveElementByPieceId(state, id));
+  const active = useSelector((state) => selectors.isActiveElementByIdolId(state, data.id));
 
   const children = useMemo(() => {
-    switch (piece.id) {
+    switch (data.id) {
       case Elements.Fire:
         return (
           <FlameIcon
@@ -61,18 +56,21 @@ export function Piece({
             className={cn("fill-slate-200", {
               "fill-slate-400": active,
               "stroke-slate-600": active,
-              "motion-safe:animate-pulse": active,
-              "motion-reduce:delay-100": active,
             })}
           />
         );
       default:
         throw Error();
     }
-  }, [piece.id, active]);
+  }, [data.id, active]);
 
   return (
-    <div className="grid place-content-center text-primary bg-secondary-foreground *:size-4 *:md:size-8">
+    <div
+      className={cn("grid place-content-center text-primary bg-secondary-foreground *:size-4 *:md:size-8", {
+        "motion-safe:animate-pulse": active,
+        "motion-reduce:delay-100": active,
+      })}
+    >
       {children}
     </div>
   );

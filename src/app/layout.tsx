@@ -9,17 +9,17 @@ const geist = Geist({
 });
 
 export default function Root({
-  board,
-}: Readonly<{
-  board: React.ReactNode;
-}>) {
+  game,
+}: {
+  game: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <head>
         <title>quattuor</title>
       </head>
       <body className={`${geist.variable} bg-background antialiased h-dvh w-dvw grid place-content-center`}>
-        <StoreProvider>{board}</StoreProvider>
+        <StoreProvider>{game}</StoreProvider>
       </body>
     </html>
   );

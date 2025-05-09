@@ -1,8 +1,8 @@
-import type { Piece } from "&/state/entity/piece";
+import type { Idol } from "&/entity/idol";
 
 export interface Card {
   id: Beasts;
-  piece: Piece["id"] | null;
+  idol: Idol["id"] | null;
   moves: Move[];
 }
 
