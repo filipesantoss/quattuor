@@ -35,5 +35,9 @@ export function Piece({
     }
   }, [piece.id]);
 
-  return <div className="grid place-content-center text-primary bg-secondary-foreground *:size-8">{children}</div>;
+  return (
+    <div className="grid place-content-center text-primary bg-secondary-foreground *:size-4 *:md:size-8">
+      {children}
+    </div>
+  );
 }

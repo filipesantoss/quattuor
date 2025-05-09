@@ -9,7 +9,7 @@ export function Board() {
 
   return (
     <main
-      className="grid max-h-full gap-4 p-4 aspect-square bg-secondary *:col-span-1 *:row-span-1"
+      className="grid max-h-full gap-2 md:gap-4 p-2 md:p-4 aspect-square bg-secondary *:col-span-1 *:row-span-1 *:p-2 *:md:p-4"
       style={{
         gridTemplateColumns: `repeat(${SIDE}, minmax(0, 1fr))`,
         gridTemplateRows: `repeat(${SIDE}, minmax(0, 1fr))`,
