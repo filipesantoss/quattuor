@@ -1,11 +1,12 @@
-import { Beasts } from "&/state/entity/card";
-import type { State } from "&/state/entity/game";
-import { Elements } from "&/state/entity/piece";
+import { Beasts } from "&/entity/card";
+import type { Game } from "&/entity/game";
+import { Elements } from "&/entity/piece";
+import equal from "fast-deep-equal";
 import { ulid } from "ulid";
 
 export const SIDE = 9;
 
-const coordinates: State["coordinates"] = Object.fromEntries(
+const coordinates: Game["coordinates"] = Object.fromEntries(
   Array.from({ length: SIDE * SIDE }).map((_, i) => {
     const id = ulid();
     const remainder = i % SIDE;
@@ -14,14 +15,7 @@ const coordinates: State["coordinates"] = Object.fromEntries(
   }),
 );
 
-const fields: State["fields"] = Object.fromEntries(
-  Object.keys(coordinates).map((coordinate) => {
-    const id = ulid();
-    return [id, { id, coordinate, piece: null }];
-  }),
-);
-
-const pieces: State["pieces"] = {
+const pieces: Game["pieces"] = {
   [Elements.Fire]: {
     id: Elements.Fire,
     coordinate: Object.keys(coordinates).at(0) as string,
@@ -40,7 +34,39 @@ const pieces: State["pieces"] = {
   },
 };
 
-const cards: State["cards"] = {
+const shrines: Game["shrines"] = {
+  [Elements.Fire]: {
+    id: Elements.Fire,
+    coordinate: Object.keys(coordinates).at(1) as string,
+    piece: null,
+  },
+  [Elements.Water]: {
+    id: Elements.Water,
+    coordinate: Object.keys(coordinates).at(SIDE - 2) as string,
+    piece: null,
+  },
+  [Elements.Earth]: {
+    id: Elements.Earth,
+    coordinate: Object.keys(coordinates).at(SIDE * SIDE - SIDE - SIDE) as string,
+    piece: null,
+  },
+  [Elements.Wind]: {
+    id: Elements.Wind,
+    coordinate: Object.keys(coordinates).at(SIDE * SIDE - 1 - SIDE) as string,
+    piece: null,
+  },
+};
+
+const fields: Game["fields"] = Object.fromEntries(
+  Object.keys(coordinates).map((coordinate) => {
+    const id = ulid();
+    const piece = Object.values(pieces).find((piece) => equal(piece.coordinate, coordinate));
+    const shrine = Object.values(shrines).find((shrine) => equal(shrine.coordinate, coordinate));
+    return [id, { id, coordinate, piece: piece?.id ?? null, shrine: shrine?.id ?? null }];
+  }),
+);
+
+const cards: Game["cards"] = {
   [Beasts.Tiger]: {
     id: Beasts.Tiger,
     piece: null,
@@ -191,7 +217,7 @@ const cards: State["cards"] = {
   },
 };
 
-const turns: State["turns"] = [
+const turns: Game["beasts"] = [
   Beasts.Ox,
   Beasts.Horse,
   Beasts.Rooster,
@@ -202,10 +228,11 @@ const turns: State["turns"] = [
   Beasts.Goose,
 ];
 
-export const initial: State = {
+export const initial: Game = {
   coordinates,
   fields,
   pieces,
   cards,
-  turns,
+  beasts: turns,
+  shrines,
 };

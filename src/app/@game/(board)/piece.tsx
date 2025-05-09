@@ -1,7 +1,7 @@
 "use client";
 
-import type { Piece as Properties } from "&/state/entity/piece";
-import { Elements } from "&/state/entity/piece";
+import type { Piece as PieceProperties } from "&/entity/piece";
+import { Elements } from "&/entity/piece";
 import { selectors } from "&/state/game";
 import { useSelector } from "&/state/store";
 import cn from "classnames";
@@ -11,9 +11,9 @@ import { useMemo } from "react";
 export function Piece({
   id,
 }: {
-  id: Properties["id"];
+  id: PieceProperties["id"];
 }) {
-  const piece = useSelector((state) => selectors.pieceByPieceId(state, id));
+  const piece = useSelector((state) => state.game.pieces[id] ?? null);
   if (piece === null) {
     throw Error();
   }
@@ -61,8 +61,6 @@ export function Piece({
             className={cn("fill-slate-200", {
               "fill-slate-400": active,
               "stroke-slate-600": active,
-              "motion-safe:animate-pulse": active,
-              "motion-reduce:delay-100": active,
             })}
           />
         );
@@ -72,7 +70,12 @@ export function Piece({
   }, [piece.id, active]);
 
   return (
-    <div className="grid place-content-center text-primary bg-secondary-foreground *:size-4 *:md:size-8">
+    <div
+      className={cn("grid place-content-center text-primary bg-secondary-foreground *:size-4 *:md:size-8", {
+        "motion-safe:animate-pulse": active,
+        "motion-reduce:delay-100": active,
+      })}
+    >
       {children}
     </div>
   );

@@ -1,4 +1,4 @@
-import type { Piece } from "&/state/entity/piece";
+import type { Piece } from "&/entity/piece";
 
 export interface Card {
   id: Beasts;

@@ -1,4 +1,4 @@
-import type { Coordinate } from "&/state/entity/coordinate";
+import type { Coordinate } from "&/entity/coordinate";
 
 export interface Piece {
   id: Elements;
