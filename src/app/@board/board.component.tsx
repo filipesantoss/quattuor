@@ -3,16 +3,13 @@
 import { Field } from "%/@board/field.component";
 import { SIDE } from "&/state/initial";
 import { useSelector } from "&/state/store";
-import { createSelector } from "@reduxjs/toolkit";
-
-const selector = createSelector([(state) => state.game.fields], (map) => Object.keys(map));
 
 export function Board() {
-  const ids = useSelector(selector);
+  const ids = useSelector((state) => Object.keys(state.game.fields));
 
   return (
     <main
-      className="grid max-h-full gap-2 p-2 aspect-square bg-secondary *:col-span-1 *:row-span-1 *:bg-secondary-foreground"
+      className="grid max-h-full gap-2 md:gap-4 p-2 md:p-4 aspect-square bg-secondary *:col-span-1 *:row-span-1 *:p-2 *:md:p-4"
       style={{
         gridTemplateColumns: `repeat(${SIDE}, minmax(0, 1fr))`,
         gridTemplateRows: `repeat(${SIDE}, minmax(0, 1fr))`,
