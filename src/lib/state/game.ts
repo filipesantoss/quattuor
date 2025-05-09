@@ -81,8 +81,8 @@ export const { reducer, selectors, actions } = createSlice({
         throw Error();
       }
 
-      const target = { x: start.x + action.payload.dx, y: start.y + action.payload.dy };
-      const coordinate = Object.values(state.coordinates).find(({ x, y }) => equal({ x, y }, target));
+      const end = { x: start.x + action.payload.dx, y: start.y + action.payload.dy };
+      const coordinate = Object.values(state.coordinates).find(({ x, y }) => equal({ x, y }, end));
       if (coordinate === undefined) {
         throw Error();
       }
@@ -92,9 +92,13 @@ export const { reducer, selectors, actions } = createSlice({
         throw Error();
       }
 
+      if (next.piece !== null) {
+        throw Error();
+      }
+
       previous.piece = null;
-      next.piece = piece.id;
       piece.coordinate = coordinate.id;
+      next.piece = piece.id;
     },
   },
 });

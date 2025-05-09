@@ -1,18 +1,7 @@
-import type { Card } from "&/state/entity/card";
 import { Beasts } from "&/state/entity/card";
-import type { Coordinate } from "&/state/entity/coordinate";
-import type { Field } from "&/state/entity/field";
-import type { Piece } from "&/state/entity/piece";
+import type { State } from "&/state/entity/game";
 import { Elements } from "&/state/entity/piece";
 import { ulid } from "ulid";
-
-interface State {
-  coordinates: Record<Coordinate["id"], Coordinate>;
-  fields: Record<Field["id"], Field>;
-  pieces: Record<Piece["id"], Piece>;
-  cards: Record<Card["id"], Card>;
-  turns: Card["id"][];
-}
 
 export const SIDE = 9;
 
@@ -62,82 +51,147 @@ const cards: State["cards"] = {
   },
   [Beasts.Dragon]: {
     id: Beasts.Dragon,
-    piece: null,
-    moves: [],
+    piece: Elements.Fire,
+    moves: [
+      { dy: -1, dx: -2 },
+      { dy: -1, dx: 2 },
+      { dy: 1, dx: -1 },
+      { dy: 1, dx: 1 },
+    ],
   },
   [Beasts.Frog]: {
     id: Beasts.Frog,
-    piece: null,
-    moves: [],
+    piece: Elements.Fire,
+    moves: [
+      { dy: 0, dx: -2 },
+      { dy: -1, dx: -1 },
+      { dy: 1, dx: 1 },
+    ],
   },
   [Beasts.Rabbit]: {
     id: Beasts.Rabbit,
-    piece: null,
-    moves: [],
+    piece: Elements.Fire,
+    moves: [
+      { dy: 1, dx: -1 },
+      { dy: -1, dx: 1 },
+      { dy: 0, dx: 2 },
+    ],
   },
   [Beasts.Crab]: {
     id: Beasts.Crab,
-    piece: null,
-    moves: [],
+    piece: Elements.Fire,
+    moves: [
+      { dy: 0, dx: -2 },
+      { dy: 0, dx: 2 },
+      { dy: -1, dx: 0 },
+    ],
   },
   [Beasts.Elephant]: {
     id: Beasts.Elephant,
-    piece: null,
-    moves: [],
+    piece: Elements.Fire,
+    moves: [
+      { dy: -1, dx: -1 },
+      { dy: 0, dx: -1 },
+      { dy: -1, dx: 1 },
+      { dy: 0, dx: 1 },
+    ],
   },
   [Beasts.Goose]: {
     id: Beasts.Goose,
-    piece: null,
-    moves: [],
+    piece: Elements.Fire,
+    moves: [
+      { dy: -1, dx: -1 },
+      { dy: 0, dx: -1 },
+      { dy: 0, dx: 1 },
+      { dy: 1, dx: 1 },
+    ],
   },
   [Beasts.Rooster]: {
     id: Beasts.Rooster,
-    piece: null,
-    moves: [],
+    piece: Elements.Fire,
+    moves: [
+      { dy: 0, dx: -1 },
+      { dy: 1, dx: -1 },
+      { dy: 0, dx: 1 },
+      { dy: -1, dx: 1 },
+    ],
   },
   [Beasts.Monkey]: {
     id: Beasts.Monkey,
-    piece: null,
-    moves: [],
+    piece: Elements.Fire,
+    moves: [
+      { dy: -1, dx: -1 },
+      { dy: 1, dx: -1 },
+      { dy: -1, dx: 1 },
+      { dy: 1, dx: 1 },
+    ],
   },
   [Beasts.Mantis]: {
     id: Beasts.Mantis,
-    piece: null,
-    moves: [],
+    piece: Elements.Fire,
+    moves: [
+      { dy: -1, dx: -1 },
+      { dy: -1, dx: 1 },
+      { dy: 1, dx: 0 },
+    ],
   },
   [Beasts.Horse]: {
     id: Beasts.Horse,
-    piece: null,
-    moves: [],
+    piece: Elements.Fire,
+    moves: [
+      { dy: 0, dx: -1 },
+      { dy: 1, dx: 0 },
+      { dy: -1, dx: 0 },
+    ],
   },
   [Beasts.Ox]: {
     id: Beasts.Ox,
-    piece: null,
-    moves: [],
+    piece: Elements.Fire,
+    moves: [
+      { dy: -1, dx: 0 },
+      { dy: 1, dx: 0 },
+      { dy: 0, dx: 1 },
+    ],
   },
   [Beasts.Crane]: {
     id: Beasts.Crane,
-    piece: null,
-    moves: [],
+    piece: Elements.Fire,
+    moves: [
+      { dy: 1, dx: -1 },
+      { dy: 1, dx: 1 },
+      { dy: -1, dx: 0 },
+    ],
   },
   [Beasts.Boar]: {
     id: Beasts.Boar,
-    piece: null,
-    moves: [],
+    piece: Elements.Fire,
+    moves: [
+      { dy: 0, dx: -1 },
+      { dy: 0, dx: 1 },
+      { dy: -1, dx: 0 },
+    ],
   },
   [Beasts.Eel]: {
     id: Beasts.Eel,
-    piece: null,
-    moves: [],
+    piece: Elements.Fire,
+    moves: [
+      { dy: -1, dx: -1 },
+      { dy: 1, dx: -1 },
+      { dy: 0, dx: 1 },
+    ],
   },
   [Beasts.Cobra]: {
     id: Beasts.Cobra,
-    piece: null,
-    moves: [],
+    piece: Elements.Fire,
+    moves: [
+      { dy: 0, dx: -1 },
+      { dy: -1, dx: 1 },
+      { dy: 1, dx: 1 },
+    ],
   },
 };
 
-const turns: State["turns"] = [Beasts.Tiger];
+const turns: State["turns"] = [Beasts.Cobra];
 
 export const initial: State = {
   coordinates,

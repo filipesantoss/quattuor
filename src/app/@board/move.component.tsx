@@ -5,6 +5,9 @@ import { actions } from "&/state/game";
 import { useDispatch } from "&/state/store";
 import { Button } from "@ariakit/react";
 
+/**
+ * @see https://www.w3.org/WAI/ARIA/apg/patterns/button/
+ */
 export function Move({
   x,
   y,
@@ -16,7 +19,9 @@ export function Move({
 
   return (
     <Button
-      className="bg-primary motion-safe:animate-pulse"
+      role="button"
+      aria-label="Move"
+      className="bg-primary motion-safe:animate-pulse focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-secondary-foreground"
       onClick={() => {
         dispatch(actions.move({ dx: x, dy: y }));
       }}
