@@ -1,6 +1,6 @@
 import type { Move } from "&/entity/card";
 import type { Field } from "&/entity/field";
-import type { Idol } from "&/entity/idol";
+import { Elements, type Idol } from "&/entity/idol";
 import type { Shrine } from "&/entity/shrine";
 import { initial } from "&/state/initial";
 import type { PayloadAction } from "@reduxjs/toolkit";
@@ -42,11 +42,6 @@ export const { reducer, selectors, actions } = createSlice({
         return null;
       }
 
-      const end = state.coordinates[field.coordinate];
-      if (end === undefined) {
-        throw Error();
-      }
-
       const [beast] = state.beasts;
       if (beast === undefined) {
         return null;
@@ -57,14 +52,51 @@ export const { reducer, selectors, actions } = createSlice({
         throw Error();
       }
 
-      const start = state.coordinates[state.idols[card.idol].coordinate];
+      const idol = state.idols[card.idol];
+
+      const start = state.coordinates[idol.coordinate];
       if (start === undefined) {
+        throw Error();
+      }
+
+      const end = state.coordinates[field.coordinate];
+      if (end === undefined) {
         throw Error();
       }
 
       const move = card.moves.find((move) => {
         const target = { x: start.x + move.dx, y: start.y + move.dy };
-        return equal({ x: end.x, y: end.y }, target);
+
+        if (!equal({ x: end.x, y: end.y }, target)) {
+          return false;
+        }
+
+        const future = Object.values(state.fields).find(({ coordinate: id }) => id === end.id);
+        if (future === undefined) {
+          throw Error();
+        }
+
+        if (future.idol !== null) {
+          return false;
+        }
+
+        if (idol.id === Elements.Earth && future.influence === Elements.Wind) {
+          return false;
+        }
+
+        if (idol.id === Elements.Wind && future.influence === Elements.Fire) {
+          return false;
+        }
+
+        if (idol.id === Elements.Fire && future.influence === Elements.Water) {
+          return false;
+        }
+
+        if (idol.id === Elements.Water && future.influence === Elements.Earth) {
+          return false;
+        }
+
+        return true;
       });
 
       return move ?? null;
@@ -94,9 +126,9 @@ export const { reducer, selectors, actions } = createSlice({
         throw Error();
       }
 
-      const idols = state.idols[card.idol];
+      const idol = state.idols[card.idol];
 
-      const start = state.coordinates[idols.coordinate];
+      const start = state.coordinates[idol.coordinate];
       if (start === undefined) {
         throw Error();
       }
@@ -121,10 +153,41 @@ export const { reducer, selectors, actions } = createSlice({
         throw Error();
       }
 
-      previous.idol = null;
-      idols.coordinate = end.id;
-      next.idol = idols.id;
+      if (idol.id === Elements.Earth && next.influence === Elements.Wind) {
+        throw Error();
+      }
 
+      if (idol.id === Elements.Wind && next.influence === Elements.Fire) {
+        throw Error();
+      }
+
+      if (idol.id === Elements.Fire && next.influence === Elements.Water) {
+        throw Error();
+      }
+
+      if (idol.id === Elements.Water && next.influence === Elements.Earth) {
+        throw Error();
+      }
+
+      previous.idol = null;
+      idol.coordinate = end.id;
+      next.idol = idol.id;
+
+      if (idol.id === Elements.Wind && next.influence === Elements.Earth) {
+        next.influence = null;
+      } else if (idol.id === Elements.Fire && next.influence === Elements.Wind) {
+        next.influence = null;
+      } else if (idol.id === Elements.Water && next.influence === Elements.Fire) {
+        next.influence = null;
+      } else if (idol.id === Elements.Earth && next.influence === Elements.Water) {
+        next.influence = null;
+      }
+
+      if (next.shrine === null && next.influence !== null && previous.influence === next.influence) {
+        return;
+      }
+
+      next.influence = idol.id;
       if (next.shrine === null) {
         state.beasts = [...beasts, beast];
         return;
@@ -133,13 +196,13 @@ export const { reducer, selectors, actions } = createSlice({
       const shrine = state.shrines[next.shrine];
       for (const beast of state.beasts) {
         const card = state.cards[beast];
-        if (card.idol !== idols.id) {
+        if (card.idol !== idol.id) {
           continue;
         }
 
         card.idol = null;
         state.beasts = state.beasts.filter((beast) => beast !== card.id);
-        shrine.idol = idols.id;
+        shrine.idol = idol.id;
       }
     },
   },

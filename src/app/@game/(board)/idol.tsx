@@ -1,17 +1,20 @@
 "use client";
 
+import { cn } from "&/cn";
 import type { Idol as IdolProperties } from "&/entity/idol";
 import { Elements } from "&/entity/idol";
 import { selectors } from "&/state/game";
 import { useSelector } from "&/state/store";
-import cn from "classnames";
+
 import { DropletIcon, FlameIcon, MountainIcon, WindIcon } from "lucide-react";
 import { useMemo } from "react";
 
 export function Idol({
   data,
+  className,
 }: {
   data: IdolProperties;
+  className: React.ButtonHTMLAttributes<HTMLDivElement>["className"];
 }) {
   const active = useSelector((state) => selectors.isActiveElementByIdolId(state, data.id));
 
@@ -21,10 +24,8 @@ export function Idol({
         return (
           <FlameIcon
             className={cn("fill-red-200", {
-              "fill-red-400": active,
-              "stroke-red-600": active,
-              "motion-safe:animate-pulse": active,
-              "motion-reduce:delay-100": active,
+              "fill-red-500": active,
+              "stroke-red-800": active,
             })}
           />
         );
@@ -32,10 +33,8 @@ export function Idol({
         return (
           <DropletIcon
             className={cn("fill-blue-200", {
-              "fill-blue-400": active,
-              "stroke-blue-600": active,
-              "motion-safe:animate-pulse": active,
-              "motion-reduce:delay-100": active,
+              "fill-blue-500": active,
+              "stroke-blue-800": active,
             })}
           />
         );
@@ -43,10 +42,8 @@ export function Idol({
         return (
           <MountainIcon
             className={cn("fill-green-200", {
-              "fill-green-400": active,
-              "stroke-green-600": active,
-              "motion-safe:animate-pulse": active,
-              "motion-reduce:delay-100": active,
+              "fill-green-500": active,
+              "stroke-green-800": active,
             })}
           />
         );
@@ -54,8 +51,8 @@ export function Idol({
         return (
           <WindIcon
             className={cn("fill-slate-200", {
-              "fill-slate-400": active,
-              "stroke-slate-600": active,
+              "fill-slate-500": active,
+              "stroke-slate-800": active,
             })}
           />
         );
@@ -66,7 +63,7 @@ export function Idol({
 
   return (
     <div
-      className={cn("grid place-content-center text-primary bg-secondary-foreground *:size-4 *:md:size-8", {
+      className={cn("grid place-content-center text-primary bg-secondary-foreground", className, {
         "motion-safe:animate-pulse": active,
         "motion-reduce:delay-100": active,
       })}
