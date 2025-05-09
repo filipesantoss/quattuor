@@ -7,4 +7,5 @@ export interface Field {
   coordinate: Coordinate["id"];
   idol: Idol["id"] | null;
   shrine: Shrine["id"] | null;
+  influence: Idol["id"] | null;
 }

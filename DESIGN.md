@@ -44,7 +44,7 @@
   1. **Grid and Board Setup**:
      * [x] 9x9 grid.
      * [x] 4 elements.
-     * [ ] Define how "marked" fields work and how elements interact with them.
+     * [x] Define how "marked" fields work and how elements interact with them.
 
   2. **Element Movement**:
      * [x] Implement movement logic for each of the 16 beast cards.

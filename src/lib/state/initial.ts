@@ -62,7 +62,7 @@ const fields: Game["fields"] = Object.fromEntries(
     const id = ulid();
     const idol = Object.values(idols).find((idol) => equal(idol.coordinate, coordinate));
     const shrine = Object.values(shrines).find((shrine) => equal(shrine.coordinate, coordinate));
-    return [id, { id, coordinate, idol: idol?.id ?? null, shrine: shrine?.id ?? null }];
+    return [id, { id, coordinate, idol: idol?.id ?? null, shrine: shrine?.id ?? null, influence: null }];
   }),
 );
 
@@ -217,7 +217,7 @@ const cards: Game["cards"] = {
   },
 };
 
-const turns: Game["beasts"] = [
+const beasts: Game["beasts"] = [
   Beasts.Ox,
   Beasts.Horse,
   Beasts.Rooster,
@@ -231,8 +231,8 @@ const turns: Game["beasts"] = [
 export const initial: Game = {
   coordinates,
   fields,
-  idols: idols,
+  idols,
   cards,
-  beasts: turns,
+  beasts,
   shrines,
 };
