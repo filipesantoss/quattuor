@@ -1,6 +1,7 @@
-import { Geist } from "next/font/google";
-
 import "./globals.css";
+
+import StoreProvider from "%/store.provider";
+import { Geist } from "next/font/google";
 
 const geist = Geist({
   variable: "--font-sans",
@@ -8,16 +9,18 @@ const geist = Geist({
 });
 
 export default function Root({
-  children,
+  board,
 }: Readonly<{
-  children: React.ReactNode;
+  board: React.ReactNode;
 }>) {
   return (
     <html lang="en">
       <head>
-        <title>Quattuor</title>
+        <title>quattuor</title>
       </head>
-      <body className={`${geist.variable} bg-background antialiased h-dvh w-dvw`}>{children}</body>
+      <body className={`${geist.variable} bg-background antialiased h-dvh w-dvw *:m-auto`}>
+        <StoreProvider>{board}</StoreProvider>
+      </body>
     </html>
   );
 }
