@@ -1,13 +1,11 @@
 "use client";
 
-import { EarthPiece } from "%/@board/piece.earth.component";
-import { FirePiece } from "%/@board/piece.fire.component";
-import { WaterPiece } from "%/@board/piece.water.component";
-import { WindPiece } from "%/@board/piece.wind.component";
 import type { Piece as Properties } from "&/state/entity/piece";
 import { Elements } from "&/state/entity/piece";
 import { selectors } from "&/state/game";
 import { useSelector } from "&/state/store";
+import cn from "classnames";
+import { DropletIcon, FlameIcon, MountainIcon, WindIcon } from "lucide-react";
 import { useMemo } from "react";
 
 export function Piece({
@@ -20,20 +18,58 @@ export function Piece({
     throw Error();
   }
 
+  const active = useSelector((state) => selectors.isActiveElementByPieceId(state, id));
+
   const children = useMemo(() => {
     switch (piece.id) {
       case Elements.Fire:
-        return <FirePiece />;
+        return (
+          <FlameIcon
+            className={cn("fill-red-200", {
+              "fill-red-400": active,
+              "stroke-red-600": active,
+              "motion-safe:animate-pulse": active,
+              "motion-reduce:delay-100": active,
+            })}
+          />
+        );
       case Elements.Water:
-        return <WaterPiece />;
+        return (
+          <DropletIcon
+            className={cn("fill-blue-200", {
+              "fill-blue-400": active,
+              "stroke-blue-600": active,
+              "motion-safe:animate-pulse": active,
+              "motion-reduce:delay-100": active,
+            })}
+          />
+        );
       case Elements.Earth:
-        return <EarthPiece />;
+        return (
+          <MountainIcon
+            className={cn("fill-green-200", {
+              "fill-green-400": active,
+              "stroke-green-600": active,
+              "motion-safe:animate-pulse": active,
+              "motion-reduce:delay-100": active,
+            })}
+          />
+        );
       case Elements.Wind:
-        return <WindPiece />;
+        return (
+          <WindIcon
+            className={cn("fill-slate-200", {
+              "fill-slate-400": active,
+              "stroke-slate-600": active,
+              "motion-safe:animate-pulse": active,
+              "motion-reduce:delay-100": active,
+            })}
+          />
+        );
       default:
         throw Error();
     }
-  }, [piece.id]);
+  }, [piece.id, active]);
 
   return (
     <div className="grid place-content-center text-primary bg-secondary-foreground *:size-4 *:md:size-8">

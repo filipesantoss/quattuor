@@ -23,6 +23,19 @@ export const { reducer, selectors, actions } = createSlice({
     pieceByCoordinateId(state, id: Coordinate["id"]): Piece | null {
       return Object.values(state.pieces).find((piece) => piece.coordinate === id) ?? null;
     },
+    isActiveElementByPieceId(state, id: Piece["id"]): boolean {
+      const [beast] = state.turns;
+      if (beast === undefined) {
+        throw Error();
+      }
+
+      const card = state.cards[beast];
+      if (card.piece === null) {
+        throw Error();
+      }
+
+      return card.piece === id;
+    },
     moveByFieldId(state, id: Field["id"]): Move | null {
       const field = state.fields[id];
       if (field === undefined) {
@@ -59,7 +72,7 @@ export const { reducer, selectors, actions } = createSlice({
   },
   reducers: {
     move(state, action: PayloadAction<Move>) {
-      const [beast] = state.turns;
+      const [beast, ...beasts] = state.turns;
       if (beast === undefined) {
         throw Error();
       }
@@ -96,9 +109,14 @@ export const { reducer, selectors, actions } = createSlice({
         throw Error();
       }
 
+      if (state.turns.length === 1) {
+        throw Error();
+      }
+
       previous.piece = null;
       piece.coordinate = coordinate.id;
       next.piece = piece.id;
+      state.turns = [...beasts, beast];
     },
   },
 });
