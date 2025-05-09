@@ -48,12 +48,12 @@
 
   2. **Element Movement**:
      * [x] Implement movement logic for each of the 16 beast cards.
-     * [ ] Implement turn-based system with defined turn order.
+     * [x] Implement turn-based system with defined turn order.
 
   3. **Card System**:
      * [ ] Draw and assign movement cards to elements.
      * [ ] Create a system for shuffling and random assignment of cards.
-     * [ ] Ensure element movement respects the card order per element.
+     * [x] Ensure element movement respects the card order per element.
 
   4. **Target System**:
      * [ ] Assign a unique target point for each element.
@@ -70,11 +70,9 @@
 
 * **Non-Functional Requirements**:
 
-   1. **Scalability**: Ensure the game engine can handle varying board sizes (start with 8x8 grid, but leave room for future expansion to different sizes if desired).
+   1. **Performance**: Efficient algorithm for level generation and AI processing, ensuring minimal lag even on lower-end devices.
 
-   2. **Performance**: Efficient algorithm for level generation and AI processing, ensuring minimal lag even on lower-end devices.
-
-   3. **Cross-platform Development**: Make sure that the game runs smoothly on both mobile and desktop.
+   2. **Cross-platform Development**: Make sure that the game runs smoothly on both mobile and desktop.
 
 ---
 

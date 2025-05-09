@@ -24,26 +24,26 @@ const fields: State["fields"] = Object.fromEntries(
 const pieces: State["pieces"] = {
   [Elements.Fire]: {
     id: Elements.Fire,
-    coordinate: Object.keys(coordinates).at((SIDE * SIDE) / 2) as string,
+    coordinate: Object.keys(coordinates).at(0) as string,
   },
   [Elements.Water]: {
     id: Elements.Water,
-    coordinate: Object.keys(coordinates).at(2) as string,
+    coordinate: Object.keys(coordinates).at(SIDE - 1) as string,
   },
   [Elements.Earth]: {
     id: Elements.Earth,
-    coordinate: Object.keys(coordinates).at(1) as string,
+    coordinate: Object.keys(coordinates).at(SIDE * SIDE - SIDE) as string,
   },
   [Elements.Wind]: {
     id: Elements.Wind,
-    coordinate: Object.keys(coordinates).at(0) as string,
+    coordinate: Object.keys(coordinates).at(SIDE * SIDE - 1) as string,
   },
 };
 
 const cards: State["cards"] = {
   [Beasts.Tiger]: {
     id: Beasts.Tiger,
-    piece: Elements.Fire,
+    piece: null,
     moves: [
       { dy: -2, dx: 0 },
       { dy: -1, dx: 0 },
@@ -51,7 +51,7 @@ const cards: State["cards"] = {
   },
   [Beasts.Dragon]: {
     id: Beasts.Dragon,
-    piece: Elements.Fire,
+    piece: null,
     moves: [
       { dy: -1, dx: -2 },
       { dy: -1, dx: 2 },
@@ -61,7 +61,7 @@ const cards: State["cards"] = {
   },
   [Beasts.Frog]: {
     id: Beasts.Frog,
-    piece: Elements.Fire,
+    piece: Elements.Wind,
     moves: [
       { dy: 0, dx: -2 },
       { dy: -1, dx: -1 },
@@ -70,7 +70,7 @@ const cards: State["cards"] = {
   },
   [Beasts.Rabbit]: {
     id: Beasts.Rabbit,
-    piece: Elements.Fire,
+    piece: Elements.Earth,
     moves: [
       { dy: 1, dx: -1 },
       { dy: -1, dx: 1 },
@@ -79,7 +79,7 @@ const cards: State["cards"] = {
   },
   [Beasts.Crab]: {
     id: Beasts.Crab,
-    piece: Elements.Fire,
+    piece: null,
     moves: [
       { dy: 0, dx: -2 },
       { dy: 0, dx: 2 },
@@ -88,7 +88,7 @@ const cards: State["cards"] = {
   },
   [Beasts.Elephant]: {
     id: Beasts.Elephant,
-    piece: Elements.Fire,
+    piece: null,
     moves: [
       { dy: -1, dx: -1 },
       { dy: 0, dx: -1 },
@@ -98,7 +98,7 @@ const cards: State["cards"] = {
   },
   [Beasts.Goose]: {
     id: Beasts.Goose,
-    piece: Elements.Fire,
+    piece: Elements.Wind,
     moves: [
       { dy: -1, dx: -1 },
       { dy: 0, dx: -1 },
@@ -108,7 +108,7 @@ const cards: State["cards"] = {
   },
   [Beasts.Rooster]: {
     id: Beasts.Rooster,
-    piece: Elements.Fire,
+    piece: Elements.Earth,
     moves: [
       { dy: 0, dx: -1 },
       { dy: 1, dx: -1 },
@@ -118,7 +118,7 @@ const cards: State["cards"] = {
   },
   [Beasts.Monkey]: {
     id: Beasts.Monkey,
-    piece: Elements.Fire,
+    piece: null,
     moves: [
       { dy: -1, dx: -1 },
       { dy: 1, dx: -1 },
@@ -128,7 +128,7 @@ const cards: State["cards"] = {
   },
   [Beasts.Mantis]: {
     id: Beasts.Mantis,
-    piece: Elements.Fire,
+    piece: null,
     moves: [
       { dy: -1, dx: -1 },
       { dy: -1, dx: 1 },
@@ -137,7 +137,7 @@ const cards: State["cards"] = {
   },
   [Beasts.Horse]: {
     id: Beasts.Horse,
-    piece: Elements.Fire,
+    piece: Elements.Water,
     moves: [
       { dy: 0, dx: -1 },
       { dy: 1, dx: 0 },
@@ -155,7 +155,7 @@ const cards: State["cards"] = {
   },
   [Beasts.Crane]: {
     id: Beasts.Crane,
-    piece: Elements.Fire,
+    piece: null,
     moves: [
       { dy: 1, dx: -1 },
       { dy: 1, dx: 1 },
@@ -164,7 +164,7 @@ const cards: State["cards"] = {
   },
   [Beasts.Boar]: {
     id: Beasts.Boar,
-    piece: Elements.Fire,
+    piece: null,
     moves: [
       { dy: 0, dx: -1 },
       { dy: 0, dx: 1 },
@@ -182,7 +182,7 @@ const cards: State["cards"] = {
   },
   [Beasts.Cobra]: {
     id: Beasts.Cobra,
-    piece: Elements.Fire,
+    piece: Elements.Water,
     moves: [
       { dy: 0, dx: -1 },
       { dy: -1, dx: 1 },
@@ -191,7 +191,16 @@ const cards: State["cards"] = {
   },
 };
 
-const turns: State["turns"] = [Beasts.Cobra];
+const turns: State["turns"] = [
+  Beasts.Ox,
+  Beasts.Horse,
+  Beasts.Rooster,
+  Beasts.Frog,
+  Beasts.Eel,
+  Beasts.Cobra,
+  Beasts.Rabbit,
+  Beasts.Goose,
+];
 
 export const initial: State = {
   coordinates,
