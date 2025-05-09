@@ -1,8 +1,8 @@
 import type { Coordinate } from "&/entity/coordinate";
-import type { Elements, Piece } from "&/entity/piece";
+import type { Elements, Idol } from "&/entity/idol";
 
 export interface Shrine {
   id: Elements;
   coordinate: Coordinate["id"];
-  piece: Piece["id"] | null;
+  idol: Idol["id"] | null;
 }

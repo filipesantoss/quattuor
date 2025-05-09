@@ -1,6 +1,6 @@
 import { Beasts } from "&/entity/card";
 import type { Game } from "&/entity/game";
-import { Elements } from "&/entity/piece";
+import { Elements } from "&/entity/idol";
 import equal from "fast-deep-equal";
 import { ulid } from "ulid";
 
@@ -15,7 +15,7 @@ const coordinates: Game["coordinates"] = Object.fromEntries(
   }),
 );
 
-const pieces: Game["pieces"] = {
+const idols: Game["idols"] = {
   [Elements.Fire]: {
     id: Elements.Fire,
     coordinate: Object.keys(coordinates).at(0) as string,
@@ -38,38 +38,38 @@ const shrines: Game["shrines"] = {
   [Elements.Fire]: {
     id: Elements.Fire,
     coordinate: Object.keys(coordinates).at(1) as string,
-    piece: null,
+    idol: null,
   },
   [Elements.Water]: {
     id: Elements.Water,
     coordinate: Object.keys(coordinates).at(SIDE - 2) as string,
-    piece: null,
+    idol: null,
   },
   [Elements.Earth]: {
     id: Elements.Earth,
     coordinate: Object.keys(coordinates).at(SIDE * SIDE - SIDE - SIDE) as string,
-    piece: null,
+    idol: null,
   },
   [Elements.Wind]: {
     id: Elements.Wind,
     coordinate: Object.keys(coordinates).at(SIDE * SIDE - 1 - SIDE) as string,
-    piece: null,
+    idol: null,
   },
 };
 
 const fields: Game["fields"] = Object.fromEntries(
   Object.keys(coordinates).map((coordinate) => {
     const id = ulid();
-    const piece = Object.values(pieces).find((piece) => equal(piece.coordinate, coordinate));
+    const idol = Object.values(idols).find((idol) => equal(idol.coordinate, coordinate));
     const shrine = Object.values(shrines).find((shrine) => equal(shrine.coordinate, coordinate));
-    return [id, { id, coordinate, piece: piece?.id ?? null, shrine: shrine?.id ?? null }];
+    return [id, { id, coordinate, idol: idol?.id ?? null, shrine: shrine?.id ?? null }];
   }),
 );
 
 const cards: Game["cards"] = {
   [Beasts.Tiger]: {
     id: Beasts.Tiger,
-    piece: null,
+    idol: null,
     moves: [
       { dy: -2, dx: 0 },
       { dy: -1, dx: 0 },
@@ -77,7 +77,7 @@ const cards: Game["cards"] = {
   },
   [Beasts.Dragon]: {
     id: Beasts.Dragon,
-    piece: null,
+    idol: null,
     moves: [
       { dy: -1, dx: -2 },
       { dy: -1, dx: 2 },
@@ -87,7 +87,7 @@ const cards: Game["cards"] = {
   },
   [Beasts.Frog]: {
     id: Beasts.Frog,
-    piece: Elements.Wind,
+    idol: Elements.Wind,
     moves: [
       { dy: 0, dx: -2 },
       { dy: -1, dx: -1 },
@@ -96,7 +96,7 @@ const cards: Game["cards"] = {
   },
   [Beasts.Rabbit]: {
     id: Beasts.Rabbit,
-    piece: Elements.Earth,
+    idol: Elements.Earth,
     moves: [
       { dy: 1, dx: -1 },
       { dy: -1, dx: 1 },
@@ -105,7 +105,7 @@ const cards: Game["cards"] = {
   },
   [Beasts.Crab]: {
     id: Beasts.Crab,
-    piece: null,
+    idol: null,
     moves: [
       { dy: 0, dx: -2 },
       { dy: 0, dx: 2 },
@@ -114,7 +114,7 @@ const cards: Game["cards"] = {
   },
   [Beasts.Elephant]: {
     id: Beasts.Elephant,
-    piece: null,
+    idol: null,
     moves: [
       { dy: -1, dx: -1 },
       { dy: 0, dx: -1 },
@@ -124,7 +124,7 @@ const cards: Game["cards"] = {
   },
   [Beasts.Goose]: {
     id: Beasts.Goose,
-    piece: Elements.Wind,
+    idol: Elements.Wind,
     moves: [
       { dy: -1, dx: -1 },
       { dy: 0, dx: -1 },
@@ -134,7 +134,7 @@ const cards: Game["cards"] = {
   },
   [Beasts.Rooster]: {
     id: Beasts.Rooster,
-    piece: Elements.Earth,
+    idol: Elements.Earth,
     moves: [
       { dy: 0, dx: -1 },
       { dy: 1, dx: -1 },
@@ -144,7 +144,7 @@ const cards: Game["cards"] = {
   },
   [Beasts.Monkey]: {
     id: Beasts.Monkey,
-    piece: null,
+    idol: null,
     moves: [
       { dy: -1, dx: -1 },
       { dy: 1, dx: -1 },
@@ -154,7 +154,7 @@ const cards: Game["cards"] = {
   },
   [Beasts.Mantis]: {
     id: Beasts.Mantis,
-    piece: null,
+    idol: null,
     moves: [
       { dy: -1, dx: -1 },
       { dy: -1, dx: 1 },
@@ -163,7 +163,7 @@ const cards: Game["cards"] = {
   },
   [Beasts.Horse]: {
     id: Beasts.Horse,
-    piece: Elements.Water,
+    idol: Elements.Water,
     moves: [
       { dy: 0, dx: -1 },
       { dy: 1, dx: 0 },
@@ -172,7 +172,7 @@ const cards: Game["cards"] = {
   },
   [Beasts.Ox]: {
     id: Beasts.Ox,
-    piece: Elements.Fire,
+    idol: Elements.Fire,
     moves: [
       { dy: -1, dx: 0 },
       { dy: 1, dx: 0 },
@@ -181,7 +181,7 @@ const cards: Game["cards"] = {
   },
   [Beasts.Crane]: {
     id: Beasts.Crane,
-    piece: null,
+    idol: null,
     moves: [
       { dy: 1, dx: -1 },
       { dy: 1, dx: 1 },
@@ -190,7 +190,7 @@ const cards: Game["cards"] = {
   },
   [Beasts.Boar]: {
     id: Beasts.Boar,
-    piece: null,
+    idol: null,
     moves: [
       { dy: 0, dx: -1 },
       { dy: 0, dx: 1 },
@@ -199,7 +199,7 @@ const cards: Game["cards"] = {
   },
   [Beasts.Eel]: {
     id: Beasts.Eel,
-    piece: Elements.Fire,
+    idol: Elements.Fire,
     moves: [
       { dy: -1, dx: -1 },
       { dy: 1, dx: -1 },
@@ -208,7 +208,7 @@ const cards: Game["cards"] = {
   },
   [Beasts.Cobra]: {
     id: Beasts.Cobra,
-    piece: Elements.Water,
+    idol: Elements.Water,
     moves: [
       { dy: 0, dx: -1 },
       { dy: -1, dx: 1 },
@@ -231,7 +231,7 @@ const turns: Game["beasts"] = [
 export const initial: Game = {
   coordinates,
   fields,
-  pieces,
+  idols: idols,
   cards,
   beasts: turns,
   shrines,

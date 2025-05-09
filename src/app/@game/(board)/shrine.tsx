@@ -2,7 +2,7 @@
 
 import { Move } from "%/@game/(board)/move";
 import type { Move as MoveProperties } from "&/entity/card";
-import { Elements } from "&/entity/piece";
+import { Elements } from "&/entity/idol";
 import type { Shrine as ShrineProperties } from "&/entity/shrine";
 import cn from "classnames";
 import { useMemo } from "react";
@@ -27,7 +27,7 @@ export function Shrine({
     );
   }, [data]);
 
-  if (data.piece !== null) {
+  if (data.idol !== null) {
     return <div className="bg-secondary" />;
   }
 

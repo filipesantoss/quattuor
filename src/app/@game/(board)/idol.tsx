@@ -1,19 +1,19 @@
 "use client";
 
-import type { Piece as PieceProperties } from "&/entity/piece";
-import { Elements } from "&/entity/piece";
+import type { Idol as IdolProperties } from "&/entity/idol";
+import { Elements } from "&/entity/idol";
 import { selectors } from "&/state/game";
 import { useSelector } from "&/state/store";
 import cn from "classnames";
 import { DropletIcon, FlameIcon, MountainIcon, WindIcon } from "lucide-react";
 import { useMemo } from "react";
 
-export function Piece({
+export function Idol({
   data,
 }: {
-  data: PieceProperties;
+  data: IdolProperties;
 }) {
-  const active = useSelector((state) => selectors.isActiveElementByPieceId(state, data.id));
+  const active = useSelector((state) => selectors.isActiveElementByIdolId(state, data.id));
 
   const children = useMemo(() => {
     switch (data.id) {

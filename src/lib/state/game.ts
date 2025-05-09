@@ -1,6 +1,6 @@
 import type { Move } from "&/entity/card";
 import type { Field } from "&/entity/field";
-import type { Piece } from "&/entity/piece";
+import type { Idol } from "&/entity/idol";
 import type { Shrine } from "&/entity/shrine";
 import { initial } from "&/state/initial";
 import type { PayloadAction } from "@reduxjs/toolkit";
@@ -11,30 +11,30 @@ export const { reducer, selectors, actions } = createSlice({
   name: "game",
   initialState: initial,
   selectors: {
-    pieceByFieldId(state, id: Field["id"]): Piece | null {
+    idolByFieldId(state, id: Field["id"]): Idol | null {
       const field = state.fields[id];
       if (field === undefined) {
         return null;
       }
 
-      if (field.piece === null) {
+      if (field.idol === null) {
         return null;
       }
 
-      return state.pieces[field.piece];
+      return state.idols[field.idol];
     },
-    isActiveElementByPieceId(state, id: Piece["id"]): boolean {
+    isActiveElementByIdolId(state, id: Idol["id"]): boolean {
       const [beast] = state.beasts;
       if (beast === undefined) {
         throw Error();
       }
 
       const card = state.cards[beast];
-      if (card.piece === null) {
+      if (card.idol === null) {
         throw Error();
       }
 
-      return card.piece === id;
+      return card.idol === id;
     },
     moveByFieldId(state, id: Field["id"]): Move | null {
       const field = state.fields[id];
@@ -53,11 +53,11 @@ export const { reducer, selectors, actions } = createSlice({
       }
 
       const card = state.cards[beast];
-      if (card.piece === null) {
+      if (card.idol === null) {
         throw Error();
       }
 
-      const start = state.coordinates[state.pieces[card.piece].coordinate];
+      const start = state.coordinates[state.idols[card.idol].coordinate];
       if (start === undefined) {
         throw Error();
       }
@@ -90,13 +90,13 @@ export const { reducer, selectors, actions } = createSlice({
       }
 
       const card = state.cards[beast];
-      if (card.piece === null) {
+      if (card.idol === null) {
         throw Error();
       }
 
-      const piece = state.pieces[card.piece];
+      const idols = state.idols[card.idol];
 
-      const start = state.coordinates[piece.coordinate];
+      const start = state.coordinates[idols.coordinate];
       if (start === undefined) {
         throw Error();
       }
@@ -117,13 +117,13 @@ export const { reducer, selectors, actions } = createSlice({
         throw Error();
       }
 
-      if (next.piece !== null) {
+      if (next.idol !== null) {
         throw Error();
       }
 
-      previous.piece = null;
-      piece.coordinate = end.id;
-      next.piece = piece.id;
+      previous.idol = null;
+      idols.coordinate = end.id;
+      next.idol = idols.id;
 
       if (next.shrine === null) {
         state.beasts = [...beasts, beast];
@@ -133,13 +133,13 @@ export const { reducer, selectors, actions } = createSlice({
       const shrine = state.shrines[next.shrine];
       for (const beast of state.beasts) {
         const card = state.cards[beast];
-        if (card.piece !== piece.id) {
+        if (card.idol !== idols.id) {
           continue;
         }
 
-        card.piece = null;
+        card.idol = null;
         state.beasts = state.beasts.filter((beast) => beast !== card.id);
-        shrine.piece = piece.id;
+        shrine.idol = idols.id;
       }
     },
   },

@@ -1,6 +1,6 @@
 import type { Coordinate } from "&/entity/coordinate";
 
-export interface Piece {
+export interface Idol {
   id: Elements;
   coordinate: Coordinate["id"];
 }
