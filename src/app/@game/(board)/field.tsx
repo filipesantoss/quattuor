@@ -9,6 +9,7 @@ import { Elements } from "&/entity/idol";
 import { selectors } from "&/state/game";
 import { useSelector } from "&/state/store";
 
+import { Target } from "%/@game/(board)/target";
 import type { FunctionComponent, PropsWithChildren } from "react";
 import { useMemo } from "react";
 
@@ -35,36 +36,13 @@ export function Field({
     };
   }, [move, shrine]);
 
-  const Area = useMemo<FunctionComponent<PropsWithChildren>>(() => {
-    return ({ children }) => (
-      <Moveable>
-        <div
-          className={cn("bg-secondary-foreground text-primary", {
-            "bg-green-300": data.influence === Elements.Earth,
-            "bg-red-300": data.influence === Elements.Fire,
-            "bg-blue-300": data.influence === Elements.Water,
-            "bg-slate-300": data.influence === Elements.Wind,
-            "bg-primary": move !== null,
-            "bg-secondary": shrine !== null && shrine.idol !== null,
-          })}
-        >
-          {children}
-        </div>
-      </Moveable>
-    );
-  }, [data, move, shrine, Moveable]);
+  const children = useMemo(() => {
+    if (shrine !== null) {
+      return <Shrine data={shrine} />;
+    }
 
-  if (shrine !== null) {
-    return (
-      <Area>
-        <Shrine data={shrine} />
-      </Area>
-    );
-  }
-
-  if (idol !== null) {
-    return (
-      <Area>
+    if (idol !== null) {
+      return (
         <Idol
           data={idol}
           className={cn({
@@ -74,9 +52,30 @@ export function Field({
             "bg-slate-300": data.influence === Elements.Wind,
           })}
         />
-      </Area>
-    );
-  }
+      );
+    }
 
-  return <Area />;
+    if (move !== null) {
+      return <Target data={data} />;
+    }
+
+    return null;
+  }, [shrine, idol, data, move]);
+
+  return (
+    <Moveable>
+      <div
+        className={cn("bg-secondary-foreground text-primary", {
+          "bg-green-300": data.influence === Elements.Earth,
+          "bg-red-300": data.influence === Elements.Fire,
+          "bg-blue-300": data.influence === Elements.Water,
+          "bg-slate-300": data.influence === Elements.Wind,
+          "bg-primary": move !== null,
+          "bg-secondary": shrine !== null && shrine.idol !== null,
+        })}
+      >
+        {children}
+      </div>
+    </Moveable>
+  );
 }

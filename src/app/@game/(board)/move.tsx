@@ -4,7 +4,6 @@ import type { Move as MoveProperties } from "&/entity/card";
 import { actions } from "&/state/game";
 import { useDispatch } from "&/state/store";
 import { Button } from "@ariakit/react";
-import { MoveDownIcon } from "lucide-react";
 import type { PropsWithChildren } from "react";
 
 /**
@@ -26,7 +25,7 @@ export function Move({
         dispatch(actions.move(data));
       }}
     >
-      {children ?? <MoveDownIcon className="text-red" />}
+      {children}
     </Button>
   );
 }

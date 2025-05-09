@@ -13,10 +13,14 @@ export function Shrine({
   return (
     <CircleIcon
       className={cn({
-        "fill-green-300": data.id === Elements.Earth,
-        "fill-red-300": data.id === Elements.Fire,
-        "fill-blue-300": data.id === Elements.Water,
-        "fill-slate-300": data.id === Elements.Wind,
+        "stroke-green-500": data.id === Elements.Earth,
+        "fill-green-500": data.id === Elements.Earth,
+        "stroke-red-500": data.id === Elements.Fire,
+        "fill-red-500": data.id === Elements.Fire,
+        "stroke-blue-500": data.id === Elements.Water,
+        "fill-blue-500": data.id === Elements.Water,
+        "stroke-slate-500": data.id === Elements.Wind,
+        "fill-slate-500": data.id === Elements.Wind,
       })}
     />
   );

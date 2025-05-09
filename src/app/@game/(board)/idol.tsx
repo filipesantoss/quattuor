@@ -16,7 +16,8 @@ export function Idol({
   data: IdolProperties;
   className: React.ButtonHTMLAttributes<HTMLDivElement>["className"];
 }) {
-  const active = useSelector((state) => selectors.isActiveElementByIdolId(state, data.id));
+  const idol = useSelector((state) => selectors.idolByCurrentBeast(state));
+  const active = idol.id === data.id;
 
   const children = useMemo(() => {
     switch (data.id) {

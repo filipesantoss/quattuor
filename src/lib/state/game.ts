@@ -23,7 +23,7 @@ export const { reducer, selectors, actions } = createSlice({
 
       return state.idols[field.idol];
     },
-    isActiveElementByIdolId(state, id: Idol["id"]): boolean {
+    idolByCurrentBeast(state): Idol {
       const [beast] = state.beasts;
       if (beast === undefined) {
         throw Error();
@@ -34,7 +34,7 @@ export const { reducer, selectors, actions } = createSlice({
         throw Error();
       }
 
-      return card.idol === id;
+      return state.idols[card.idol];
     },
     moveByFieldId(state, id: Field["id"]): Move | null {
       const field = state.fields[id];
