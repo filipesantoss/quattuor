@@ -1,8 +1,23 @@
 import type { Coordinate } from "&/entity/coordinate";
-import type { Elements, Idol } from "&/entity/idol";
+import type { Idol } from "&/entity/idol";
 
+/**
+ * A Shrine on the Game board.
+ */
 export interface Shrine {
-  id: Elements;
+  /**
+   * A reference to the Shrine's owner.
+   * Each Shrine is owned by a single Idol.
+   */
+  id: Idol["id"];
+
+  /**
+   * A reference to the Coordinate at which the Shrine is positioned.
+   */
   coordinate: Coordinate["id"];
-  idol: Idol["id"] | null;
+
+  /**
+   * Whether the Shrine has been claimed by its Idol.
+   */
+  claimed: boolean;
 }

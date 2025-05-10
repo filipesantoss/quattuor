@@ -1,15 +1,14 @@
 "use client";
 
 import { Idol } from "%/@game/(board)/idol";
-import { Move } from "%/@game/(board)/move";
+import { Movement } from "%/@game/(board)/movement";
 import { Shrine } from "%/@game/(board)/shrine";
+import { Target } from "%/@game/(board)/target";
 import { cn } from "&/cn";
 import type { Field as FieldProperties } from "&/entity/field";
 import { Elements } from "&/entity/idol";
 import { selectors } from "&/state/game";
 import { useSelector } from "&/state/store";
-
-import { Target } from "%/@game/(board)/target";
 import type { FunctionComponent, PropsWithChildren } from "react";
 import { useMemo } from "react";
 
@@ -20,7 +19,7 @@ export function Field({
 }) {
   const shrine = useSelector((state) => selectors.shrineByFieldId(state, data.id));
   const move = useSelector((state) => selectors.moveByFieldId(state, data.id));
-  const idol = useSelector((state) => selectors.idolByFieldId(state, data.id));
+  const occupier = useSelector((state) => selectors.occupierByFieldId(state, data.id));
 
   const Moveable = useMemo<FunctionComponent<PropsWithChildren>>(() => {
     return ({ children }) => {
@@ -28,11 +27,11 @@ export function Field({
         return children;
       }
 
-      if (shrine != null && shrine.idol != null) {
+      if (shrine?.claimed ?? false) {
         return children;
       }
 
-      return <Move data={move}>{children}</Move>;
+      return <Movement data={move}>{children}</Movement>;
     };
   }, [move, shrine]);
 
@@ -41,15 +40,15 @@ export function Field({
       return <Shrine data={shrine} />;
     }
 
-    if (idol !== null) {
+    if (occupier !== null) {
       return (
         <Idol
-          data={idol}
+          data={occupier}
           className={cn({
-            "bg-green-300": data.influence === Elements.Earth,
-            "bg-red-300": data.influence === Elements.Fire,
-            "bg-blue-300": data.influence === Elements.Water,
-            "bg-slate-300": data.influence === Elements.Wind,
+            "bg-green-300": data.influencer === Elements.Earth,
+            "bg-red-300": data.influencer === Elements.Fire,
+            "bg-blue-300": data.influencer === Elements.Water,
+            "bg-slate-300": data.influencer === Elements.Wind,
           })}
         />
       );
@@ -60,18 +59,18 @@ export function Field({
     }
 
     return null;
-  }, [shrine, idol, data, move]);
+  }, [shrine, occupier, data, move]);
 
   return (
     <Moveable>
       <div
         className={cn("bg-secondary-foreground text-primary", {
-          "bg-green-300": data.influence === Elements.Earth,
-          "bg-red-300": data.influence === Elements.Fire,
-          "bg-blue-300": data.influence === Elements.Water,
-          "bg-slate-300": data.influence === Elements.Wind,
+          "bg-green-300": data.influencer === Elements.Earth,
+          "bg-red-300": data.influencer === Elements.Fire,
+          "bg-blue-300": data.influencer === Elements.Water,
+          "bg-slate-300": data.influencer === Elements.Wind,
           "bg-primary": move !== null,
-          "bg-secondary": shrine !== null && shrine.idol !== null,
+          "bg-secondary": shrine?.claimed ?? false,
         })}
       >
         {children}

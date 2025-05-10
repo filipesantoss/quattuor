@@ -1,6 +1,6 @@
 "use client";
 
-import type { Move as MoveProperties } from "&/entity/card";
+import type { Movement as MovementProperties } from "&/entity/movement";
 import { actions } from "&/state/game";
 import { useDispatch } from "&/state/store";
 import { Button } from "@ariakit/react";
@@ -9,11 +9,11 @@ import type { PropsWithChildren } from "react";
 /**
  * @see https://www.w3.org/WAI/ARIA/apg/patterns/button/
  */
-export function Move({
+export function Movement({
   data,
   children,
 }: PropsWithChildren<{
-  data: MoveProperties;
+  data: MovementProperties;
 }>) {
   const dispatch = useDispatch();
 

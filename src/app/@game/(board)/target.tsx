@@ -12,8 +12,8 @@ export function Target({
 }: {
   data: FieldProperties;
 }) {
-  const idol = useSelector((state) => selectors.idolByCurrentBeast(state));
-  const Icon = data.influence === idol.id ? RefreshCwIcon : CircleDashedIcon;
+  const idol = useSelector((state) => selectors.idolByActiveBeast(state));
+  const Icon = data.influencer === idol.id ? RefreshCwIcon : CircleDashedIcon;
 
   return (
     <Icon

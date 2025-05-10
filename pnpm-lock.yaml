@@ -41,9 +41,6 @@ importers:
       tailwind-merge:
         specifier: ^3.2.0
         version: 3.2.0
-      ulid:
-        specifier: ^3.0.0
-        version: 3.0.0
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.9.4
@@ -904,10 +901,6 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  ulid@3.0.0:
-    resolution: {integrity: sha512-yvZYdXInnJve6LdlPIuYmURdS2NP41ZoF4QW7SXwbUKYt53+0eDAySO+rGSvM2O/ciuB/G+8N7GQrZ1mCJpuqw==}
-    hasBin: true
-
   undici-types@6.19.8:
     resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
 
@@ -1612,8 +1605,6 @@ snapshots:
   tslib@2.8.1: {}
 
   typescript@5.8.3: {}
-
-  ulid@3.0.0: {}
 
   undici-types@6.19.8: {}
 
