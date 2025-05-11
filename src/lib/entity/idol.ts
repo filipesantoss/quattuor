@@ -16,6 +16,9 @@ export interface Idol {
   id: Elements;
 }
 
+/**
+ * Verifies whether the Idol is unable to resist the provided Element.
+ */
 export function succumbs(this: Idol, element: Elements): boolean {
   switch (this.id) {
     case Elements.Earth:
@@ -31,7 +34,10 @@ export function succumbs(this: Idol, element: Elements): boolean {
   }
 }
 
-export function conquers(this: Idol, element: Elements): boolean {
+/**
+ * Verifies whether the Idol is able to resist the provided Element.
+ */
+export function resists(this: Idol, element: Elements): boolean {
   if (element === this.id) {
     return true;
   }

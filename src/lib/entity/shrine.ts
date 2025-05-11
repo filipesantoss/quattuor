@@ -14,6 +14,9 @@ export interface Shrine {
   claimed: boolean;
 }
 
+/**
+ * Claims the Shrine of the provided Idol.
+ */
 export function claim(this: Shrine, idol: Idol): void {
   assert(!this.claimed);
   assert(idol.id === this.id);

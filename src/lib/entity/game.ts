@@ -18,6 +18,9 @@ export interface Game {
   sequence: Spirit["id"][];
 }
 
+/**
+ * Advances the game by a step.
+ */
 export function step(this: Game, movement: Movement): void {
   const [creature, ...creatures] = this.sequence;
   assert(creature !== undefined);

@@ -52,6 +52,9 @@ export interface Beast {
   movements: Movement[];
 }
 
+/**
+ * Verifies whether the Beast if able to perform the provided Movement.
+ */
 export function performs(this: Beast, movement: Movement): boolean {
   const { movements } = this;
 
@@ -66,6 +69,9 @@ export interface Spirit extends Beast {
   master: Idol["id"];
 }
 
+/**
+ * Verifies whether the Spirit has the provided Idol as its master.
+ */
 export function serves(this: Spirit, idol: Idol): boolean {
   return this.master === idol.id;
 }
