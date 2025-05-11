@@ -19,7 +19,7 @@ export interface Game {
 }
 
 /**
- * Advances the game by a step.
+ * Advances the Game by a step.
  */
 export function step(this: Game, movement: Movement): void {
   const [creature, ...creatures] = this.sequence;
