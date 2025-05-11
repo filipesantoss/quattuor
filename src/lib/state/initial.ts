@@ -1,215 +1,200 @@
-import { Beasts } from "&/entity/card";
 import type { Game } from "&/entity/game";
+import type { Idol } from "&/entity/idol";
 import { Elements } from "&/entity/idol";
-import equal from "fast-deep-equal";
+import type { Beast } from "&/entity/spirit";
+import { Creatures } from "&/entity/spirit";
 import { ulid } from "ulid";
 
 export const SIDE = 9;
 
-const coordinates: Game["coordinates"] = Object.fromEntries(
-  Array.from({ length: SIDE * SIDE }).map((_, i) => {
+const _idols: Record<string, Idol["id"]> = {
+  [`${0}`]: Elements.Fire,
+  [`${SIDE - 1}`]: Elements.Water,
+  [`${SIDE * SIDE - SIDE}`]: Elements.Earth,
+  [`${SIDE * SIDE - 1}`]: Elements.Wind,
+};
+
+const _shrines: Record<string, Idol["id"]> = {
+  [`${1}`]: Elements.Fire,
+  [`${SIDE - 2}`]: Elements.Water,
+  [`${SIDE * SIDE - SIDE - SIDE}`]: Elements.Earth,
+  [`${SIDE * SIDE - 1 - SIDE}`]: Elements.Wind,
+};
+
+const fields: Game["fields"] = Object.fromEntries(
+  Array.from({ length: SIDE * SIDE }).map((_, index) => {
     const id = ulid();
-    const remainder = i % SIDE;
-    const quotient = (i - remainder) / SIDE;
-    return [id, { id, x: remainder, y: quotient }];
+    const x = index % SIDE;
+    const y = (index - x) / SIDE;
+    const occupier = _idols[index] ?? null;
+    const shrine = _shrines[index] ?? null;
+    const influencer = null;
+    return [id, { id, x, y, occupier, shrine, influencer }];
   }),
 );
 
 const idols: Game["idols"] = {
   [Elements.Fire]: {
     id: Elements.Fire,
-    coordinate: Object.keys(coordinates).at(0) as string,
   },
   [Elements.Water]: {
     id: Elements.Water,
-    coordinate: Object.keys(coordinates).at(SIDE - 1) as string,
   },
   [Elements.Earth]: {
     id: Elements.Earth,
-    coordinate: Object.keys(coordinates).at(SIDE * SIDE - SIDE) as string,
   },
   [Elements.Wind]: {
     id: Elements.Wind,
-    coordinate: Object.keys(coordinates).at(SIDE * SIDE - 1) as string,
   },
 };
 
 const shrines: Game["shrines"] = {
   [Elements.Fire]: {
     id: Elements.Fire,
-    coordinate: Object.keys(coordinates).at(1) as string,
-    idol: null,
+    claimed: false,
   },
   [Elements.Water]: {
     id: Elements.Water,
-    coordinate: Object.keys(coordinates).at(SIDE - 2) as string,
-    idol: null,
+    claimed: false,
   },
   [Elements.Earth]: {
     id: Elements.Earth,
-    coordinate: Object.keys(coordinates).at(SIDE * SIDE - SIDE - SIDE) as string,
-    idol: null,
+    claimed: false,
   },
   [Elements.Wind]: {
     id: Elements.Wind,
-    coordinate: Object.keys(coordinates).at(SIDE * SIDE - 1 - SIDE) as string,
-    idol: null,
+    claimed: false,
   },
 };
 
-const fields: Game["fields"] = Object.fromEntries(
-  Object.keys(coordinates).map((coordinate) => {
-    const id = ulid();
-    const idol = Object.values(idols).find((idol) => equal(idol.coordinate, coordinate));
-    const shrine = Object.values(shrines).find((shrine) => equal(shrine.coordinate, coordinate));
-    return [id, { id, coordinate, idol: idol?.id ?? null, shrine: shrine?.id ?? null, influence: null }];
-  }),
-);
-
-const cards: Game["cards"] = {
-  [Beasts.Tiger]: {
-    id: Beasts.Tiger,
-    idol: null,
-    moves: [
+const _beasts: Record<Creatures, Beast> = {
+  [Creatures.Tiger]: {
+    id: Creatures.Tiger,
+    movements: [
       { dy: -2, dx: 0 },
       { dy: -1, dx: 0 },
     ],
   },
-  [Beasts.Dragon]: {
-    id: Beasts.Dragon,
-    idol: null,
-    moves: [
+  [Creatures.Dragon]: {
+    id: Creatures.Dragon,
+    movements: [
       { dy: -1, dx: -2 },
       { dy: -1, dx: 2 },
       { dy: 1, dx: -1 },
       { dy: 1, dx: 1 },
     ],
   },
-  [Beasts.Frog]: {
-    id: Beasts.Frog,
-    idol: Elements.Wind,
-    moves: [
+  [Creatures.Frog]: {
+    id: Creatures.Frog,
+    movements: [
       { dy: 0, dx: -2 },
       { dy: -1, dx: -1 },
       { dy: 1, dx: 1 },
     ],
   },
-  [Beasts.Rabbit]: {
-    id: Beasts.Rabbit,
-    idol: Elements.Earth,
-    moves: [
+  [Creatures.Rabbit]: {
+    id: Creatures.Rabbit,
+    movements: [
       { dy: 1, dx: -1 },
       { dy: -1, dx: 1 },
       { dy: 0, dx: 2 },
     ],
   },
-  [Beasts.Crab]: {
-    id: Beasts.Crab,
-    idol: null,
-    moves: [
+  [Creatures.Crab]: {
+    id: Creatures.Crab,
+    movements: [
       { dy: 0, dx: -2 },
       { dy: 0, dx: 2 },
       { dy: -1, dx: 0 },
     ],
   },
-  [Beasts.Elephant]: {
-    id: Beasts.Elephant,
-    idol: null,
-    moves: [
+  [Creatures.Elephant]: {
+    id: Creatures.Elephant,
+    movements: [
       { dy: -1, dx: -1 },
       { dy: 0, dx: -1 },
       { dy: -1, dx: 1 },
       { dy: 0, dx: 1 },
     ],
   },
-  [Beasts.Goose]: {
-    id: Beasts.Goose,
-    idol: Elements.Wind,
-    moves: [
+  [Creatures.Goose]: {
+    id: Creatures.Goose,
+    movements: [
       { dy: -1, dx: -1 },
       { dy: 0, dx: -1 },
       { dy: 0, dx: 1 },
       { dy: 1, dx: 1 },
     ],
   },
-  [Beasts.Rooster]: {
-    id: Beasts.Rooster,
-    idol: Elements.Earth,
-    moves: [
+  [Creatures.Rooster]: {
+    id: Creatures.Rooster,
+    movements: [
       { dy: 0, dx: -1 },
       { dy: 1, dx: -1 },
       { dy: 0, dx: 1 },
       { dy: -1, dx: 1 },
     ],
   },
-  [Beasts.Monkey]: {
-    id: Beasts.Monkey,
-    idol: null,
-    moves: [
+  [Creatures.Monkey]: {
+    id: Creatures.Monkey,
+    movements: [
       { dy: -1, dx: -1 },
       { dy: 1, dx: -1 },
       { dy: -1, dx: 1 },
       { dy: 1, dx: 1 },
     ],
   },
-  [Beasts.Mantis]: {
-    id: Beasts.Mantis,
-    idol: null,
-    moves: [
+  [Creatures.Mantis]: {
+    id: Creatures.Mantis,
+    movements: [
       { dy: -1, dx: -1 },
       { dy: -1, dx: 1 },
       { dy: 1, dx: 0 },
     ],
   },
-  [Beasts.Horse]: {
-    id: Beasts.Horse,
-    idol: Elements.Water,
-    moves: [
+  [Creatures.Horse]: {
+    id: Creatures.Horse,
+    movements: [
       { dy: 0, dx: -1 },
       { dy: 1, dx: 0 },
       { dy: -1, dx: 0 },
     ],
   },
-  [Beasts.Ox]: {
-    id: Beasts.Ox,
-    idol: Elements.Fire,
-    moves: [
+  [Creatures.Ox]: {
+    id: Creatures.Ox,
+    movements: [
       { dy: -1, dx: 0 },
       { dy: 1, dx: 0 },
       { dy: 0, dx: 1 },
     ],
   },
-  [Beasts.Crane]: {
-    id: Beasts.Crane,
-    idol: null,
-    moves: [
+  [Creatures.Crane]: {
+    id: Creatures.Crane,
+    movements: [
       { dy: 1, dx: -1 },
       { dy: 1, dx: 1 },
       { dy: -1, dx: 0 },
     ],
   },
-  [Beasts.Boar]: {
-    id: Beasts.Boar,
-    idol: null,
-    moves: [
+  [Creatures.Boar]: {
+    id: Creatures.Boar,
+    movements: [
       { dy: 0, dx: -1 },
       { dy: 0, dx: 1 },
       { dy: -1, dx: 0 },
     ],
   },
-  [Beasts.Eel]: {
-    id: Beasts.Eel,
-    idol: Elements.Fire,
-    moves: [
+  [Creatures.Eel]: {
+    id: Creatures.Eel,
+    movements: [
       { dy: -1, dx: -1 },
       { dy: 1, dx: -1 },
       { dy: 0, dx: 1 },
     ],
   },
-  [Beasts.Cobra]: {
-    id: Beasts.Cobra,
-    idol: Elements.Water,
-    moves: [
+  [Creatures.Cobra]: {
+    id: Creatures.Cobra,
+    movements: [
       { dy: 0, dx: -1 },
       { dy: -1, dx: 1 },
       { dy: 1, dx: 1 },
@@ -217,22 +202,32 @@ const cards: Game["cards"] = {
   },
 };
 
-const beasts: Game["beasts"] = [
-  Beasts.Ox,
-  Beasts.Horse,
-  Beasts.Rooster,
-  Beasts.Frog,
-  Beasts.Eel,
-  Beasts.Cobra,
-  Beasts.Rabbit,
-  Beasts.Goose,
+const spirits: Game["spirits"] = {
+  [Creatures.Ox]: { ..._beasts[Creatures.Ox], master: Elements.Fire },
+  [Creatures.Eel]: { ..._beasts[Creatures.Eel], master: Elements.Fire },
+  [Creatures.Horse]: { ..._beasts[Creatures.Horse], master: Elements.Water },
+  [Creatures.Cobra]: { ..._beasts[Creatures.Cobra], master: Elements.Water },
+  [Creatures.Rabbit]: { ..._beasts[Creatures.Rabbit], master: Elements.Earth },
+  [Creatures.Rooster]: { ..._beasts[Creatures.Rooster], master: Elements.Earth },
+  [Creatures.Frog]: { ..._beasts[Creatures.Frog], master: Elements.Wind },
+  [Creatures.Goose]: { ..._beasts[Creatures.Goose], master: Elements.Wind },
+};
+
+const sequence: Game["sequence"] = [
+  Creatures.Ox,
+  Creatures.Horse,
+  Creatures.Rooster,
+  Creatures.Frog,
+  Creatures.Eel,
+  Creatures.Cobra,
+  Creatures.Rabbit,
+  Creatures.Goose,
 ];
 
 export const initial: Game = {
-  coordinates,
   fields,
   idols,
-  cards,
-  beasts,
+  spirits,
+  sequence,
   shrines,
 };

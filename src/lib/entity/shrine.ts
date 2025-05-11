@@ -1,8 +1,24 @@
-import type { Coordinate } from "&/entity/coordinate";
-import type { Elements, Idol } from "&/entity/idol";
+import { assert } from "&/assert";
+import type { Idol } from "&/entity/idol";
 
 export interface Shrine {
-  id: Elements;
-  coordinate: Coordinate["id"];
-  idol: Idol["id"] | null;
+  /**
+   * A unique identifier for the Shrine.
+   * A reference to the Idol who owns the Shrine.
+   */
+  id: Idol["id"];
+
+  /**
+   * Whether the Shrine has been claimed by its Idol.
+   */
+  claimed: boolean;
+}
+
+/**
+ * Claims the Shrine of the provided Idol.
+ */
+export function claim(this: Shrine, idol: Idol): void {
+  assert(!this.claimed);
+  assert(idol.id === this.id);
+  this.claimed = true;
 }
