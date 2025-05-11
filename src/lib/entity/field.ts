@@ -46,14 +46,14 @@ export function offset(this: Field, movement: Movement): Coordinate {
 }
 
 /**
- * Verifies whther the Field is located in the provided Coordinate.
+ * Verifies whether the Field is located in the provided Coordinate.
  */
 export function matches(this: Field, coordinate: Coordinate): boolean {
   return this.x === coordinate.x && this.y === coordinate.y;
 }
 
 /**
- * Verifies whther the provided Idol occupies the Field.
+ * Verifies whether the provided Idol occupies the Field.
  */
 export function hosts(this: Field, idol: Idol): boolean {
   return this.occupier === idol.id;
