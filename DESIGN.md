@@ -51,7 +51,7 @@
      * [x] Implement turn-based system with defined turn order.
 
   3. **Card System**:
-     * [x] Draw and assign movement cards to elements.
+     * [x] Assign movement cards to elements.
      * [x] Ensure element movement respects the card order per element.
 
   4. **Shrine System**:
@@ -60,6 +60,7 @@
 
   5. **Winning and Progression**:
      * [x] Implement a win condition when all elements reach their shrine.
+     * [ ] Design a "new" option.
      * [ ] Design an "undo" option.
 
   6. **Auto-Generation Algorithm**:
@@ -88,7 +89,8 @@
 
   1. **Game Interface**:
 
-     * [ ] Simple UI for card selection and game controls.
+     * [ ] Visuals for the cards.
+     * [ ] Visuals for the turn order.
      * [ ] Visuals for the grid, elements, and movement transitions.
      * [ ] Include tutorials or tooltips for explaining mechanics.
 
@@ -109,7 +111,7 @@
 
   5. **Accessibility**:
 
-     * [ ] Add features for colorblind modes or other accessibility options if needed.
+     * [ ] Add features for colorblind modes or other accessibility options.
 
 * **Non-Functional Requirements**:
 
