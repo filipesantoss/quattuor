@@ -1,10 +1,9 @@
 "use client";
 
+import type { Store } from "&/state/store";
 import { create } from "&/state/store";
 import React from "react";
 import { Provider } from "react-redux";
-
-import type { Store } from "&/state/store";
 import type { Persistor } from "redux-persist";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
