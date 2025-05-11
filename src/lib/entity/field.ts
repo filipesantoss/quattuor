@@ -6,12 +6,12 @@ import type { Movement } from "&/entity/spirit";
 
 interface Coordinate {
   /**
-   * The x-axis value of the Field.
+   * The x-axis Coordinate value.
    */
   x: number;
 
   /**
-   * The y-axis value of the Field.
+   * The y-axis Coordinate value.
    */
   y: number;
 }
@@ -46,7 +46,7 @@ export function offset(this: Field, movement: Movement): Coordinate {
 }
 
 /**
- * Verifies whther the Field is locates in the provided Coordinate.
+ * Verifies whther the Field is located in the provided Coordinate.
  */
 export function matches(this: Field, coordinate: Coordinate): boolean {
   return this.x === coordinate.x && this.y === coordinate.y;
