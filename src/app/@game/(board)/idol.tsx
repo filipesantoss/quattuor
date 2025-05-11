@@ -10,12 +10,10 @@ import { useMemo } from "react";
 
 export function Idol({
   data,
-  className,
 }: {
   data: IdolProperties;
-  className: React.ButtonHTMLAttributes<HTMLDivElement>["className"];
 }) {
-  const idol = useSelector((state) => selectors.idolByActiveBeast(state));
+  const idol = useSelector((state) => selectors.idolByActiveCreature(state));
   const active = idol.id === data.id;
 
   const children = useMemo(() => {
@@ -63,9 +61,8 @@ export function Idol({
 
   return (
     <div
-      className={cn("grid place-content-center text-primary bg-secondary-foreground", className, {
+      className={cn("grid place-content-center", {
         "motion-safe:animate-pulse": active,
-        "motion-reduce:delay-100": active,
       })}
     >
       {children}

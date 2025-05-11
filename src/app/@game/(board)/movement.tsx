@@ -1,6 +1,6 @@
 "use client";
 
-import type { Movement as MovementProperties } from "&/entity/movement";
+import type { Movement as MovementProperties } from "&/entity/spirit";
 import { actions } from "&/state/game";
 import { useDispatch } from "&/state/store";
 import { Button } from "@ariakit/react";

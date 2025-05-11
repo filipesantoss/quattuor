@@ -1,0 +1,71 @@
+import { assert } from "&/assert";
+import equal from "fast-deep-equal";
+import type { Idol } from "./idol";
+
+/**
+ * The sixteen Creatures.
+ */
+export enum Creatures {
+  Tiger = "TIGER",
+  Dragon = "DRAGON",
+  Frog = "FROG",
+  Rabbit = "RABBIT",
+  Crab = "CRAB",
+  Elephant = "ELEPHANT",
+  Goose = "GOOSE",
+  Rooster = "ROOSTER",
+  Monkey = "MONKEY",
+  Mantis = "MANTIS",
+  Horse = "HORSE",
+  Ox = "OX",
+  Crane = "CRANE",
+  Boar = "BOAR",
+  Eel = "EEL",
+  Cobra = "COBRA",
+}
+
+export interface Movement {
+  /**
+   * The change in the y-axis.
+   * A positive value represents a downard movement.
+   * A negative value represents an upward movement.
+   */
+  dy: number;
+
+  /**
+   * The change in the x-axis.
+   * A positive value represents a rightward movement.
+   * A negative value represents a leftward movement.
+   */
+  dx: number;
+}
+
+export interface Beast {
+  /**
+   * A unique identifier for the Beast.
+   */
+  id: Creatures;
+
+  /**
+   * The Movements performed by the Beast.
+   */
+  movements: Movement[];
+}
+
+export function performs(this: Beast, movement: Movement): boolean {
+  const { movements } = this;
+
+  assert(movements.length > 0);
+  return movements.some((known) => equal(known, movement));
+}
+
+export interface Spirit extends Beast {
+  /**
+   * A reference to the Idol that tamed this Beast.
+   */
+  master: Idol["id"];
+}
+
+export function serves(this: Spirit, idol: Idol): boolean {
+  return this.master === idol.id;
+}

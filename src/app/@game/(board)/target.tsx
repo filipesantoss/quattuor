@@ -5,15 +5,15 @@ import type { Field as FieldProperties } from "&/entity/field";
 import { Elements } from "&/entity/idol";
 import { selectors } from "&/state/game";
 import { useSelector } from "&/state/store";
-import { CircleDashedIcon, RefreshCwIcon } from "lucide-react";
+import { CircleDashedIcon, CircleIcon } from "lucide-react";
 
 export function Target({
   data,
 }: {
   data: FieldProperties;
 }) {
-  const idol = useSelector((state) => selectors.idolByActiveBeast(state));
-  const Icon = data.influencer === idol.id ? RefreshCwIcon : CircleDashedIcon;
+  const idol = useSelector((state) => selectors.idolByActiveCreature(state));
+  const Icon = data.influencer === idol.id ? CircleIcon : CircleDashedIcon;
 
   return (
     <Icon
