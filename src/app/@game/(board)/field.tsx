@@ -18,7 +18,7 @@ export function Field({
   data: FieldProperties;
 }) {
   const shrine = useSelector((state) => selectors.shrineByFieldId(state, data.id));
-  const movement = useSelector((state) => selectors.movementByFieldId(state, data.id));
+  const movement = useSelector((state) => selectors.movementByTargetFieldId(state, data.id));
   const occupier = useSelector((state) => selectors.occupierByFieldId(state, data.id));
 
   const Moveable = useMemo<FunctionComponent<PropsWithChildren>>(() => {

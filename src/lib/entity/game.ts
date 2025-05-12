@@ -19,9 +19,70 @@ export interface Game {
 }
 
 /**
+ * Verifies whether the game is won.
+ */
+export function won(this: Game): boolean {
+  return Object.values(this.shrines).every((shrine) => shrine.claimed);
+}
+
+/**
+ * Verifies whether the game is lost.
+ */
+export function lost(this: Game): boolean {
+  const options = scan.call(this);
+  return options.length === 0;
+}
+
+/**
+ * Verifies whether the game is ongoing.
+ */
+export function ongoing(this: Game): boolean {
+  return this.sequence.length !== 0;
+}
+
+/**
+ * Scans around the Field for Movements.
+ */
+export function scan(this: Game): Movement[] {
+  assert(ongoing.call(this));
+
+  const [creature] = this.sequence;
+  assert(creature !== undefined);
+
+  const spirit = this.spirits[creature];
+  assert(spirit !== undefined);
+
+  const idol = this.idols[spirit.master];
+  const from = Object.values(this.fields).find((field) => hosts.call(field, idol));
+  assert(from !== undefined);
+
+  return spirit.movements.filter((movement) => {
+    const target = offset.call(from, movement);
+    const to = Object.values(this.fields).find((field) => matches.call(field, target));
+    if (to === undefined) {
+      return false;
+    }
+
+    if (!matches.call(to, target)) {
+      return false;
+    }
+
+    const complies = accepts.call(to, idol);
+    if (to.shrine !== null) {
+      const shrine = this.shrines[to.shrine];
+      return complies && !shrine.claimed;
+    }
+
+    return complies;
+  });
+}
+
+/**
  * Advances the Game by a step.
  */
 export function step(this: Game, movement: Movement): void {
+  assert(ongoing.call(this));
+
   const [creature, ...creatures] = this.sequence;
   assert(creature !== undefined);
 
@@ -30,7 +91,6 @@ export function step(this: Game, movement: Movement): void {
   assert(performs.call(spirit, movement));
 
   const idol = this.idols[spirit.master];
-
   const from = Object.values(this.fields).find((field) => hosts.call(field, idol));
   assert(from !== undefined);
 
@@ -46,13 +106,15 @@ export function step(this: Game, movement: Movement): void {
     return;
   }
 
+  const next = [...creatures, creature];
   if (to.shrine === null) {
-    this.sequence = [...creatures, creature];
+    this.sequence = next;
     return;
   }
 
   const shrine = this.shrines[to.shrine];
   if (!attuned.call(shrine, idol)) {
+    this.sequence = next;
     return;
   }
 
@@ -60,35 +122,4 @@ export function step(this: Game, movement: Movement): void {
 
   const free = Object.values(this.spirits).filter((spirit) => serves.call(spirit, idol));
   this.sequence = this.sequence.filter((creature) => !free.some((spirit) => is.call(spirit, creature)));
-}
-
-/**
- * Scans around the Field for valid Movements.
- */
-export function scan(this: Game, field: Field): Movement[] {
-  const [creature] = this.sequence;
-  assert(creature !== undefined);
-
-  const spirit = this.spirits[creature];
-  assert(spirit !== undefined);
-
-  const idol = this.idols[spirit.master];
-
-  const from = Object.values(this.fields).find((field) => hosts.call(field, idol));
-  assert(from !== undefined);
-
-  return spirit.movements.filter((movement) => {
-    const target = offset.call(from, movement);
-    if (!matches.call(field, target)) {
-      return false;
-    }
-
-    const complies = accepts.call(field, idol);
-    if (field.shrine !== null) {
-      const shrine = this.shrines[field.shrine];
-      return complies && !shrine.claimed;
-    }
-
-    return complies;
-  });
 }

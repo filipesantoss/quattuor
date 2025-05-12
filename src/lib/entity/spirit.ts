@@ -1,6 +1,6 @@
 import { assert } from "&/assert";
+import type { Idol } from "&/entity/idol";
 import equal from "fast-deep-equal";
-import type { Idol } from "./idol";
 
 /**
  * The sixteen Creatures.
@@ -56,10 +56,8 @@ export interface Beast {
  * Verifies whether the Beast if able to perform the provided Movement.
  */
 export function performs(this: Beast, movement: Movement): boolean {
-  const { movements } = this;
-
-  assert(movements.length > 0);
-  return movements.some((known) => equal(known, movement));
+  assert(this.movements.length > 0);
+  return this.movements.some((known) => equal(known, movement));
 }
 
 /**

@@ -2,7 +2,7 @@
 
 import type { Store } from "&/state/store";
 import { create } from "&/state/store";
-import React from "react";
+import { useRef } from "react";
 import { Provider } from "react-redux";
 import type { Persistor } from "redux-persist";
 import { persistStore } from "redux-persist";
@@ -13,7 +13,7 @@ export default function StoreProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const reference = React.useRef<{ store: Store; persistor: Persistor } | null>(null);
+  const reference = useRef<{ store: Store; persistor: Persistor } | null>(null);
 
   if (!reference.current) {
     const store = create();
