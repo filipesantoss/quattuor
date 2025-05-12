@@ -60,6 +60,13 @@ export function hosts(this: Field, idol: Idol): boolean {
 }
 
 /**
+ * Verifies whether the provided Idol influences the Field.
+ */
+export function worships(this: Field, idol: Idol): boolean {
+  return this.influencer === idol.id;
+}
+
+/**
  * Verifies whether the provided Idol can enter the Field.
  */
 export function accepts(this: Field, idol: Idol): boolean {
