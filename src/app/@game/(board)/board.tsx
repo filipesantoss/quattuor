@@ -1,7 +1,7 @@
 "use client";
 
 import { Field } from "%/@game/(board)/field";
-import { SIDE } from "&/state/initial";
+import { SIDE } from "&/puzzle/build";
 import { useSelector } from "&/state/store";
 
 export function Board() {

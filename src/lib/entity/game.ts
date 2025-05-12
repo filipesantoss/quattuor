@@ -1,11 +1,11 @@
 import { assert } from "&/assert";
 import type { Field } from "&/entity/field";
-import { enter, hosts, leave, matches, offset } from "&/entity/field";
+import { accepts, enter, hosts, leave, matches, offset } from "&/entity/field";
 import type { Idol } from "&/entity/idol";
 import type { Shrine } from "&/entity/shrine";
-import { claim } from "&/entity/shrine";
+import { attuned, claim } from "&/entity/shrine";
 import type { Movement, Spirit } from "&/entity/spirit";
-import { performs, serves } from "&/entity/spirit";
+import { is, performs, serves } from "&/entity/spirit";
 
 /**
  * @see https://redux.js.org/usage/structuring-reducers/normalizing-state-shape
@@ -40,21 +40,55 @@ export function step(this: Game, movement: Movement): void {
 
   leave.call(from, idol);
   const repeater = to.influencer;
-  const claims = enter.call(to, idol);
+  enter.call(to, idol);
 
   if (repeater === idol.id) {
     return;
   }
 
-  if (!claims) {
+  if (to.shrine === null) {
     this.sequence = [...creatures, creature];
     return;
   }
 
-  assert(to.shrine !== null);
   const shrine = this.shrines[to.shrine];
+  if (!attuned.call(shrine, idol)) {
+    return;
+  }
+
   claim.call(shrine, idol);
 
   const free = Object.values(this.spirits).filter((spirit) => serves.call(spirit, idol));
-  this.sequence = this.sequence.filter((creature) => !free.some((spirit) => spirit.id === creature));
+  this.sequence = this.sequence.filter((creature) => !free.some((spirit) => is.call(spirit, creature)));
+}
+
+/**
+ * Scans around the Field for valid Movements.
+ */
+export function scan(this: Game, field: Field): Movement[] {
+  const [creature] = this.sequence;
+  assert(creature !== undefined);
+
+  const spirit = this.spirits[creature];
+  assert(spirit !== undefined);
+
+  const idol = this.idols[spirit.master];
+
+  const from = Object.values(this.fields).find((field) => hosts.call(field, idol));
+  assert(from !== undefined);
+
+  return spirit.movements.filter((movement) => {
+    const target = offset.call(from, movement);
+    if (!matches.call(field, target)) {
+      return false;
+    }
+
+    const complies = accepts.call(field, idol);
+    if (field.shrine !== null) {
+      const shrine = this.shrines[field.shrine];
+      return complies && !shrine.claimed;
+    }
+
+    return complies;
+  });
 }

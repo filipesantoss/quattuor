@@ -1,17 +1,16 @@
 import { assert } from "&/assert";
 import type { Field } from "&/entity/field";
-import { accepts, matches, offset } from "&/entity/field";
-import { step } from "&/entity/game";
+import { scan, step } from "&/entity/game";
 import type { Idol } from "&/entity/idol";
 import type { Shrine } from "&/entity/shrine";
 import type { Movement } from "&/entity/spirit";
-import { initial } from "&/state/initial";
+import { build } from "&/puzzle/build";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 
 export const { reducer, selectors, actions } = createSlice({
   name: "game",
-  initialState: initial,
+  initialState: build(),
   selectors: {
     occupierByFieldId(state, id: Field["id"]): Idol | null {
       const field = state.fields[id];
@@ -36,32 +35,7 @@ export const { reducer, selectors, actions } = createSlice({
       const field = state.fields[id];
       assert(field !== undefined);
 
-      const [creature] = state.sequence;
-      assert(creature !== undefined);
-
-      const spirit = state.spirits[creature];
-      assert(spirit !== undefined);
-
-      const idol = state.idols[spirit.master];
-
-      const from = Object.values(state.fields).find((field) => field.occupier === idol.id);
-      assert(from !== undefined);
-
-      const movement = spirit.movements.find((movement) => {
-        const target = offset.call(from, movement);
-        if (!matches.call(field, target)) {
-          return false;
-        }
-
-        const complies = accepts.call(field, idol);
-        if (field.shrine !== null) {
-          const shrine = state.shrines[field.shrine];
-          return complies && !shrine.claimed;
-        }
-
-        return complies;
-      });
-
+      const [movement] = scan.call(state, field);
       return movement ?? null;
     },
     shrineByFieldId(state, id: Field["id"]): Shrine | null {

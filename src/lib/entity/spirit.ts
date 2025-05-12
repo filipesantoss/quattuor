@@ -62,6 +62,13 @@ export function performs(this: Beast, movement: Movement): boolean {
   return movements.some((known) => equal(known, movement));
 }
 
+/**
+ * Verifies whether the Beast is the provided Creature.
+ */
+export function is(this: Beast, creature: Creatures): boolean {
+  return this.id === creature;
+}
+
 export interface Spirit extends Beast {
   /**
    * A reference to the Idol that tamed this Beast.
