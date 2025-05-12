@@ -67,13 +67,13 @@ export function scan(this: Game): Movement[] {
       return false;
     }
 
-    const complies = accepts.call(to, idol);
+    const allowed = accepts.call(to, idol);
     if (to.shrine !== null) {
       const shrine = this.shrines[to.shrine];
-      return complies && !shrine.claimed;
+      return allowed && !shrine.claimed;
     }
 
-    return complies;
+    return allowed;
   });
 }
 
