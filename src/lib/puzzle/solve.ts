@@ -8,7 +8,7 @@ import clone from "clone-deep";
 import equal from "fast-deep-equal";
 
 /**
- * Identifies all the Movement sequances that solve the provided Game puzzle.
+ * Identifies all the Movement sequances that solve the provided Game.
  */
 export function solve(game: Game): Movement[][] {
   const solutions = new Set<string>();
