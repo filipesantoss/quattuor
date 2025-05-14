@@ -60,6 +60,13 @@ export function hosts(this: Field, idol: Idol): boolean {
 }
 
 /**
+ * Verifies whether the provided Idol influences the Field.
+ */
+export function worships(this: Field, idol: Idol): boolean {
+  return this.influencer === idol.id;
+}
+
+/**
  * Verifies whether the provided Idol can enter the Field.
  */
 export function accepts(this: Field, idol: Idol): boolean {
@@ -75,23 +82,31 @@ export function accepts(this: Field, idol: Idol): boolean {
 }
 
 /**
+ * Places the provided Shrine in the Field.
+ */
+export function abandon(this: Field, shrine: Shrine): void {
+  assert(this.shrine === null);
+  assert(this.occupier === null);
+  assert(this.influencer === null);
+  this.shrine = shrine.id;
+}
+
+/**
  * Allows the provided Idol to leave the Field.
  */
 export function leave(this: Field, idol: Idol): void {
-  assert(this.occupier === idol.id);
+  assert(hosts.call(this, idol));
   this.occupier = null;
 }
 
 /**
- * Allows the provided Idol to enter the Field, verifying whether a Shrine gets claimed.
+ * Allows the provided Idol to enter the Field.
  */
-export function enter(this: Field, idol: Idol): boolean {
+export function enter(this: Field, idol: Idol): void {
   assert(accepts.call(this, idol));
   this.occupier = idol.id;
 
   if (this.influencer === null || resists.call(idol, this.influencer)) {
     this.influencer = idol.id;
   }
-
-  return this.shrine === idol.id;
 }

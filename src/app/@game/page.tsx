@@ -1,12 +1,20 @@
 "use client";
 
 import { Board } from "%/@game/(board)/board";
-import { useSelector } from "&/state/store";
+import { ongoing } from "&/entity/game";
+import { actions } from "&/state/game";
+import { useDispatch, useSelector } from "&/state/store";
+import { useEffect } from "react";
 
 export default function Game() {
-  const ready = useSelector((state) => state.game.sequence.length !== 0);
+  const wait = useSelector((state) => !ongoing.call(state.game));
+  const dispatch = useDispatch();
 
-  if (!ready) {
+  useEffect(() => {
+    dispatch(actions.init());
+  }, [dispatch]);
+
+  if (wait) {
     return null;
   }
 

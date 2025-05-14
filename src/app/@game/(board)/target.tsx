@@ -2,6 +2,7 @@
 
 import { cn } from "&/cn";
 import type { Field as FieldProperties } from "&/entity/field";
+import { worships } from "&/entity/field";
 import { Elements } from "&/entity/idol";
 import { selectors } from "&/state/game";
 import { useSelector } from "&/state/store";
@@ -13,7 +14,7 @@ export function Target({
   data: FieldProperties;
 }) {
   const idol = useSelector((state) => selectors.idolByActiveCreature(state));
-  const Icon = data.influencer === idol.id ? CircleIcon : CircleDashedIcon;
+  const Icon = worships.call(data, idol) ? CircleIcon : CircleDashedIcon;
 
   return (
     <Icon

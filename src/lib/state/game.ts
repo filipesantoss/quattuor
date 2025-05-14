@@ -1,13 +1,15 @@
 import { assert } from "&/assert";
 import type { Field } from "&/entity/field";
-import { accepts, matches, offset } from "&/entity/field";
-import { step } from "&/entity/game";
+import { hosts, matches, offset } from "&/entity/field";
+import { scan, step } from "&/entity/game";
 import type { Idol } from "&/entity/idol";
 import type { Shrine } from "&/entity/shrine";
 import type { Movement } from "&/entity/spirit";
+import { create } from "&/puzzle/create";
 import { initial } from "&/state/initial";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
+import equal from "fast-deep-equal";
 
 export const { reducer, selectors, actions } = createSlice({
   name: "game",
@@ -32,9 +34,14 @@ export const { reducer, selectors, actions } = createSlice({
 
       return state.idols[spirit.master];
     },
-    movementByFieldId(state, id: Field["id"]): Movement | null {
+    movementByTargetFieldId(state, id: Field["id"]): Movement | null {
       const field = state.fields[id];
       assert(field !== undefined);
+
+      const options = scan.call(state);
+      if (options.length === 0) {
+        return null;
+      }
 
       const [creature] = state.sequence;
       assert(creature !== undefined);
@@ -43,26 +50,17 @@ export const { reducer, selectors, actions } = createSlice({
       assert(spirit !== undefined);
 
       const idol = state.idols[spirit.master];
-
-      const from = Object.values(state.fields).find((field) => field.occupier === idol.id);
+      const from = Object.values(state.fields).find((field) => hosts.call(field, idol));
       assert(from !== undefined);
 
-      const movement = spirit.movements.find((movement) => {
+      const necessary = options.find((movement) => {
         const target = offset.call(from, movement);
-        if (!matches.call(field, target)) {
-          return false;
-        }
-
-        const complies = accepts.call(field, idol);
-        if (field.shrine !== null) {
-          const shrine = state.shrines[field.shrine];
-          return complies && !shrine.claimed;
-        }
-
-        return complies;
+        const to = Object.values(state.fields).find((field) => matches.call(field, target));
+        assert(to !== undefined);
+        return to.id === field.id;
       });
 
-      return movement ?? null;
+      return necessary ?? null;
     },
     shrineByFieldId(state, id: Field["id"]): Shrine | null {
       const field = state.fields[id];
@@ -76,6 +74,13 @@ export const { reducer, selectors, actions } = createSlice({
     },
   },
   reducers: {
+    init(state) {
+      if (!equal(state, initial)) {
+        return;
+      }
+
+      Object.assign(state, create());
+    },
     move(state, action: PayloadAction<Movement>) {
       step.call(state, action.payload);
     },

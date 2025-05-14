@@ -19,6 +19,13 @@ export interface Shrine {
  */
 export function claim(this: Shrine, idol: Idol): void {
   assert(!this.claimed);
-  assert(idol.id === this.id);
+  assert(attuned.call(this, idol));
   this.claimed = true;
+}
+
+/**
+ * Verifies whether the Shrine is attuned to the provided Idol.
+ */
+export function attuned(this: Shrine, idol: Idol): boolean {
+  return this.id === idol.id;
 }
