@@ -65,7 +65,7 @@
 
   6. **Auto-Generation Algorithm**:
      * [ ] Develop a system that ensures all generated levels are solvable with a unique solution.
-     * [ ] Implement procedural generation of levels, where the game randomly places elements and shrines and draws cards.
+     * [x] Implement procedural generation of levels, where the game randomly places elements and shrines and draws cards.
 
 * **Non-Functional Requirements**:
 
