@@ -1,4 +1,5 @@
 import { assert } from "&/assert";
+import { encode } from "&/encoding";
 import { abandon, enter } from "&/entity/field";
 import type { Game } from "&/entity/game";
 import { beastiary } from "&/puzzle/bestiary";
@@ -7,17 +8,22 @@ import clone from "clone-deep";
 import { shuffle } from "fast-shuffle";
 import { solve } from "./solve";
 
+const created = new Set<string>();
+
 export function create(): Game {
-  const game = build();
-  const solutions = solve(game);
+  while (true) {
+    const game = build();
+    const entry = encode(game);
+    if (created.has(entry)) {
+      continue;
+    }
 
-  // TODO: performance
-  console.log(solutions);
-  if (solutions.length === 0) {
-    return create();
+    created.add(entry);
+    const solutions = solve(game);
+    if (solutions.length !== 0) {
+      return game;
+    }
   }
-
-  return game;
 }
 
 function build(): Game {
