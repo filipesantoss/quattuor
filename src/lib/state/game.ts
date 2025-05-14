@@ -79,12 +79,7 @@ export const { reducer, selectors, actions } = createSlice({
         return;
       }
 
-      const puzzle = create();
-      state.fields = puzzle.fields;
-      state.idols = puzzle.idols;
-      state.sequence = puzzle.sequence;
-      state.shrines = puzzle.shrines;
-      state.spirits = puzzle.spirits;
+      Object.assign(state, create());
     },
     move(state, action: PayloadAction<Movement>) {
       step.call(state, action.payload);

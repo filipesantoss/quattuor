@@ -7,6 +7,9 @@ import type { Movement } from "&/entity/spirit";
 import clone from "clone-deep";
 import equal from "fast-deep-equal";
 
+/**
+ * Identifies all the Movement sequances that solve the provided Game puzzle.
+ */
 export function solve(game: Game): Movement[][] {
   const solutions = new Set<string>();
   const simulated = new Set<string>();

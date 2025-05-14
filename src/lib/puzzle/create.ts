@@ -10,6 +10,9 @@ import { solve } from "./solve";
 
 const created = new Set<string>();
 
+/**
+ * Creates a new, solvable Game.
+ */
 export function create(): Game {
   while (true) {
     const game = build();
