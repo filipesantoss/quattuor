@@ -105,7 +105,13 @@ export function leave(this: Field, idol: Idol): void {
 export function enter(this: Field, idol: Idol): void {
   assert(accepts.call(this, idol));
   this.occupier = idol.id;
+  influence.call(this, idol);
+}
 
+/**
+ * Attemps to have the provided Idol influence the Field.
+ */
+export function influence(this: Field, idol: Idol): void {
   if (this.influencer === null || resists.call(idol, this.influencer)) {
     this.influencer = idol.id;
   }
