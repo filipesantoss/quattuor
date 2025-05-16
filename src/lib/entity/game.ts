@@ -123,7 +123,7 @@ export function step(this: Game, movement: Movement): void {
     const repeater = to.influencer;
     enter.call(to, idol);
 
-    if (repeater === idol.id) {
+    if (to.shrine === null && repeater === idol.id) {
       continue;
     }
 
