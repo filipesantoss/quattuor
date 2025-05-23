@@ -1,6 +1,7 @@
 "use client";
 
 import { Board } from "%/@game/(board)/board";
+import { Menu } from "%/@game/(menu)/menu";
 import { ongoing } from "&/entity/game";
 import { actions } from "&/state/game";
 import { useDispatch, useSelector } from "&/state/store";
@@ -11,12 +12,19 @@ export default function Game() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(actions.init());
-  }, [dispatch]);
+    if (wait) {
+      dispatch(actions.init());
+    }
+  }, [wait, dispatch]);
 
   if (wait) {
     return null;
   }
 
-  return <Board />;
+  return (
+    <>
+      <Board />
+      <Menu />
+    </>
+  );
 }

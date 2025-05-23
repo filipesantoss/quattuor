@@ -1,6 +1,7 @@
 import { assert } from "&/assert";
 import type { Field } from "&/entity/field";
 import { hosts, matches, offset } from "&/entity/field";
+import type { Game } from "&/entity/game";
 import { scan, step } from "&/entity/game";
 import type { Idol } from "&/entity/idol";
 import type { Shrine } from "&/entity/shrine";
@@ -83,6 +84,9 @@ export const { reducer, selectors, actions } = createSlice({
     },
     move(state, action: PayloadAction<Movement>) {
       step.call(state, action.payload);
+    },
+    load(state, action: PayloadAction<Game>) {
+      Object.assign(state, action.payload);
     },
   },
 });
