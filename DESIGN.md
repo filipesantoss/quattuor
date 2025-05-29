@@ -60,7 +60,7 @@
 
   5. **Winning and Progression**:
      * [x] Implement a win condition when all elements reach their shrine.
-     * [ ] Design a "new" option.
+     * [x] Design a "new" option.
      * [x] Design an "undo" option.
 
   6. **Auto-Generation Algorithm**:
