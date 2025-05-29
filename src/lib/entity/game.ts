@@ -20,6 +20,7 @@ import type { Shrine } from "&/entity/shrine";
 import { attuned, claim } from "&/entity/shrine";
 import type { Movement, Spirit } from "&/entity/spirit";
 import { is, performs, serves } from "&/entity/spirit";
+import { initial } from "&/state/initial";
 import equal from "fast-deep-equal";
 
 /**
@@ -31,6 +32,13 @@ export interface Game {
   fields: Record<Field["id"], Field>;
   spirits: Partial<Record<Spirit["id"], Spirit>>;
   sequence: Spirit["id"][];
+}
+
+/**
+ * Verifies whether the game has started.
+ */
+export function started(this: Game): boolean {
+  return !equal(this.fields, initial.fields);
 }
 
 /**
@@ -49,17 +57,10 @@ export function lost(this: Game): boolean {
 }
 
 /**
- * Verifies whether the game is ongoing.
- */
-export function ongoing(this: Game): boolean {
-  return this.sequence.length !== 0;
-}
-
-/**
  * Scans around the Field for Movements.
  */
 export function scan(this: Game): Movement[] {
-  assert(ongoing.call(this));
+  assert(started.call(this));
 
   const [creature] = this.sequence;
   assert(creature !== undefined);
@@ -96,7 +97,7 @@ export function scan(this: Game): Movement[] {
  * Advances the Game by a step.
  */
 export function step(this: Game, movement: Movement): void {
-  assert(ongoing.call(this));
+  assert(started.call(this));
 
   const [creature, ...creatures] = this.sequence;
   assert(creature !== undefined);

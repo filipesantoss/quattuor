@@ -1,6 +1,6 @@
 "use client";
 
-import { Field } from "%/@game/(board)/field";
+import { Field } from "%/@screen/(game)/(board)/field";
 import { SIDE } from "&/state/initial";
 import { useSelector } from "&/state/store";
 

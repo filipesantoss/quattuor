@@ -1,6 +1,4 @@
-"use client";
-
-import { Rewind } from "%/@game/(menu)/rewind";
+import { Rewind } from "%/@screen/(game)/(menu)/rewind";
 import { Toolbar, ToolbarProvider } from "@ariakit/react";
 
 export function Menu() {

@@ -1,9 +1,9 @@
 "use client";
 
-import { Idol } from "%/@game/(board)/idol";
-import { Movement } from "%/@game/(board)/movement";
-import { Shrine } from "%/@game/(board)/shrine";
-import { Target } from "%/@game/(board)/target";
+import { Idol } from "%/@screen/(game)/(board)/idol";
+import { Movement } from "%/@screen/(game)/(board)/movement";
+import { Shrine } from "%/@screen/(game)/(board)/shrine";
+import { Target } from "%/@screen/(game)/(board)/target";
 import { cn } from "&/cn";
 import type { Field as FieldProperties } from "&/entity/field";
 import { Elements } from "&/entity/idol";

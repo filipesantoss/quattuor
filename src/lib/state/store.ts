@@ -30,7 +30,7 @@ export function create() {
   const listener = createListenerMiddleware<State>();
 
   listener.startListening({
-    actionCreator: game.actions.init,
+    actionCreator: game.actions.sprawl,
     effect: async (_, api) => {
       const state = api.getState();
       api.dispatch(timeline.actions.reset(state.game));
