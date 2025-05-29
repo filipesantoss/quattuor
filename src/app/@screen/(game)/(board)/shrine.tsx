@@ -1,5 +1,3 @@
-"use client";
-
 import { cn } from "&/cn";
 import { Elements } from "&/entity/idol";
 import type { Shrine as ShrineProperties } from "&/entity/shrine";

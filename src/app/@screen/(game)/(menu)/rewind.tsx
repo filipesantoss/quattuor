@@ -1,3 +1,5 @@
+"use client";
+
 import { useDispatch, useSelector } from "&/state/store";
 import { actions } from "&/state/timeline";
 import { ToolbarItem } from "@ariakit/react";

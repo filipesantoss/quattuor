@@ -9,9 +9,9 @@ const geist = Geist({
 });
 
 export default function Root({
-  game,
+  screen,
 }: {
-  game: React.ReactNode;
+  screen: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -19,7 +19,7 @@ export default function Root({
         <title>quattuor</title>
       </head>
       <body className={`${geist.variable} bg-background antialiased h-dvh w-dvw grid place-content-center gap-y-8`}>
-        <StoreProvider>{game}</StoreProvider>
+        <StoreProvider>{screen}</StoreProvider>
       </body>
     </html>
   );

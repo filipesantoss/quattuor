@@ -60,11 +60,10 @@
 
   5. **Winning and Progression**:
      * [x] Implement a win condition when all elements reach their shrine.
-     * [ ] Design a "new" option.
-     * [ ] Design an "undo" option.
+     * [x] Design a "new" option.
+     * [x] Design an "undo" option.
 
   6. **Auto-Generation Algorithm**:
-     * [ ] Develop a system that ensures all generated levels are solvable with a unique solution.
      * [x] Implement procedural generation of levels, where the game randomly places elements and shrines and draws cards.
 
 * **Non-Functional Requirements**:

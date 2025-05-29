@@ -6,11 +6,9 @@ import { scan, step } from "&/entity/game";
 import type { Idol } from "&/entity/idol";
 import type { Shrine } from "&/entity/shrine";
 import type { Movement } from "&/entity/spirit";
-import { create } from "&/puzzle/create";
 import { initial } from "&/state/initial";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import equal from "fast-deep-equal";
 
 export const { reducer, selectors, actions } = createSlice({
   name: "game",
@@ -75,12 +73,8 @@ export const { reducer, selectors, actions } = createSlice({
     },
   },
   reducers: {
-    init(state) {
-      if (!equal(state, initial)) {
-        return;
-      }
-
-      Object.assign(state, create());
+    sprawl(state, action: PayloadAction<Game>) {
+      Object.assign(state, action.payload);
     },
     move(state, action: PayloadAction<Movement>) {
       step.call(state, action.payload);

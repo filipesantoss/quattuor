@@ -20,7 +20,7 @@ export interface Field extends Coordinate {
   /**
    * A unique identifier for the Field.
    */
-  id: string;
+  id: number;
 
   /**
    * A reference to the Idol occupying the Field.

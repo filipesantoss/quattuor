@@ -1,13 +1,12 @@
 import type { Game } from "&/entity/game";
 import { Elements } from "&/entity/idol";
-import { ulid } from "ulid";
 
 export const SIDE = 9;
 
 export const initial: Game = {
   fields: Object.fromEntries(
     Array.from({ length: SIDE * SIDE }).map((_, index) => {
-      const id = ulid();
+      const id = index;
       const x = index % SIDE;
       const y = (index - x) / SIDE;
       return [id, { id, x, y, occupier: null, shrine: null, influencer: null }];
