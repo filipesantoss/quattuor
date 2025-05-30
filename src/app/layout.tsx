@@ -18,7 +18,9 @@ export default function Root({
       <head>
         <title>quattuor</title>
       </head>
-      <body className={`${geist.variable} bg-background antialiased h-dvh w-dvw grid place-content-center gap-y-8`}>
+      <body
+        className={`${geist.variable} bg-background text-foreground antialiased h-dvh w-dvw grid place-content-center`}
+      >
         <StoreProvider>{screen}</StoreProvider>
       </body>
     </html>

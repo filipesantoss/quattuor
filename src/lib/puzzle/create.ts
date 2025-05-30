@@ -17,10 +17,10 @@ import { encode } from "&/encoding";
 import { abandon, enter } from "&/entity/field";
 import type { Game } from "&/entity/game";
 import { beastiary } from "&/puzzle/bestiary";
+import { solve } from "&/puzzle/solve";
 import { initial } from "&/state/initial";
 import clone from "clone-deep";
 import { shuffle } from "fast-shuffle";
-import { solve } from "./solve";
 
 const created = new Set<string>();
 

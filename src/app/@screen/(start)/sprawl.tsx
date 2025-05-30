@@ -29,7 +29,7 @@ export function Sprawl() {
     <Button
       aria-label="Sprawl"
       disabled={sprawling}
-      className="focus-visible:outline-none focus-visible:ring-2 rounded-sm text-primary-foreground disabled:text-primary"
+      className="focus-visible:outline-none ring-1 focus-visible:ring-2 rounded-sm text-primary-foreground disabled:text-primary p-2"
       onClick={() => {
         setSprawling(true);
         worker.current?.postMessage(null);
