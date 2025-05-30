@@ -19,45 +19,17 @@ export function Idol({
   const children = useMemo(() => {
     switch (data.id) {
       case Elements.Fire:
-        return (
-          <FlameIcon
-            className={cn("fill-red-200", {
-              "fill-red-500": active,
-              "stroke-red-800": active,
-            })}
-          />
-        );
+        return <FlameIcon className="fill-fire" />;
       case Elements.Water:
-        return (
-          <DropletIcon
-            className={cn("fill-blue-200", {
-              "fill-blue-500": active,
-              "stroke-blue-800": active,
-            })}
-          />
-        );
+        return <DropletIcon className="fill-water" />;
       case Elements.Earth:
-        return (
-          <MountainIcon
-            className={cn("fill-green-200", {
-              "fill-green-500": active,
-              "stroke-green-800": active,
-            })}
-          />
-        );
+        return <MountainIcon className="fill-earth" />;
       case Elements.Wind:
-        return (
-          <WindIcon
-            className={cn("fill-slate-200", {
-              "fill-slate-500": active,
-              "stroke-slate-800": active,
-            })}
-          />
-        );
+        return <WindIcon className="fill-wind" />;
       default:
         throw Error();
     }
-  }, [data.id, active]);
+  }, [data.id]);
 
   return (
     <div

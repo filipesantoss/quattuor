@@ -19,10 +19,10 @@ export function Target({
   return (
     <Icon
       className={cn({
-        "stroke-green-300": idol.id === Elements.Earth,
-        "stroke-red-300": idol.id === Elements.Fire,
-        "stroke-blue-300": idol.id === Elements.Water,
-        "stroke-slate-300": idol.id === Elements.Wind,
+        "stroke-earth": idol.id === Elements.Earth,
+        "stroke-fire": idol.id === Elements.Fire,
+        "stroke-water": idol.id === Elements.Water,
+        "stroke-wind": idol.id === Elements.Wind,
       })}
     />
   );

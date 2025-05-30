@@ -13,7 +13,7 @@ export function Rewind() {
     <ToolbarItem
       aria-label="Rewind"
       disabled={!enabled}
-      className="focus-visible:outline-none focus-visible:ring-2 rounded-sm text-secondary-foreground disabled:text-primary"
+      className="focus-visible:outline-none focus-visible:ring-2 rounded-sm text-secondary-foreground disabled:opacity-25"
       onClick={() => {
         dispatch(actions.rewind());
       }}

@@ -20,14 +20,11 @@ export function Field({
   const shrine = useSelector((state) => selectors.shrineByFieldId(state, data.id));
   const movement = useSelector((state) => selectors.movementByTargetFieldId(state, data.id));
   const occupier = useSelector((state) => selectors.occupierByFieldId(state, data.id));
+  const idol = useSelector((state) => selectors.idolByActiveCreature(state));
 
-  const Moveable = useMemo<FunctionComponent<PropsWithChildren>>(() => {
+  const Container = useMemo<FunctionComponent<PropsWithChildren>>(() => {
     return ({ children }) => {
-      if (movement === null) {
-        return children;
-      }
-
-      if (shrine?.claimed ?? false) {
+      if (movement === null || (shrine?.claimed ?? false)) {
         return children;
       }
 
@@ -52,19 +49,21 @@ export function Field({
   }, [shrine, occupier, data, movement]);
 
   return (
-    <Moveable>
+    <Container>
       <div
-        className={cn("bg-secondary-foreground text-primary", {
-          "bg-green-300": data.influencer === Elements.Earth,
-          "bg-red-300": data.influencer === Elements.Fire,
-          "bg-blue-300": data.influencer === Elements.Water,
-          "bg-slate-300": data.influencer === Elements.Wind,
-          "bg-primary": movement !== null,
+        className={cn("text-primary", {
+          "bg-earth": data.influencer === Elements.Earth,
+          "bg-fire": data.influencer === Elements.Fire,
+          "bg-water": data.influencer === Elements.Water,
+          "bg-wind": data.influencer === Elements.Wind,
           "bg-secondary": shrine?.claimed ?? false,
+          "bg-accent": movement !== null,
+          "border border-secondary-foreground": movement === null,
+          "shadow-lg shadow-primary": data.occupier === idol.id,
         })}
       >
         {children}
       </div>
-    </Moveable>
+    </Container>
   );
 }

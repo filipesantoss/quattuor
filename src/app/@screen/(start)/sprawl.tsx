@@ -28,14 +28,18 @@ export function Sprawl() {
   return (
     <Button
       disabled={sprawling}
-      className="focus-visible:outline-none ring-1 focus-visible:ring-2 rounded-sm text-primary-foreground disabled:text-primary p-2 grid grid-flow-col gap-x-2"
+      className="focus-visible:outline-none ring-1 focus-visible:ring-2 rounded-sm text-foreground disabled:opacity-25 p-2 grid grid-flow-col gap-x-2"
       onClick={() => {
         setSprawling(true);
         worker.current?.postMessage(null);
       }}
     >
       Sprawl
-      <PuzzleIcon className={cn({ "motion-safe:animate-spin": sprawling })} />
+      <PuzzleIcon
+        className={cn({
+          "motion-safe:animate-spin": sprawling,
+        })}
+      />
     </Button>
   );
 }
