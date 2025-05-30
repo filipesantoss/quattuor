@@ -15,17 +15,14 @@ export function Bar() {
         {spirits.map((spirit) => (
           <div
             key={spirit.id}
-            className={cn(
-              "rounded-lg bg-secondary-foreground grid place-content-center border border-secondary-foreground",
-              {
-                "size-12 md:size-14 lg:size-16 text-2xl": spirit.id === active,
-                "size-6 md:size-8 lg:size-12": spirit.id !== active,
-                "bg-earth": spirit.master === Elements.Earth,
-                "bg-fire": spirit.master === Elements.Fire,
-                "bg-water": spirit.master === Elements.Water,
-                "bg-wind": spirit.master === Elements.Wind,
-              },
-            )}
+            className={cn("rounded-lg grid place-content-center border border-secondary-foreground", {
+              "size-12 md:size-14 lg:size-16 text-2xl": spirit.id === active,
+              "size-6 md:size-8 lg:size-12": spirit.id !== active,
+              "bg-earth": spirit.master === Elements.Earth,
+              "bg-fire": spirit.master === Elements.Fire,
+              "bg-water": spirit.master === Elements.Water,
+              "bg-wind": spirit.master === Elements.Wind,
+            })}
           >
             <span className="font-noto text-black animate-in zoom-in-0">{spirit.id}</span>
           </div>
