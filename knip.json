@@ -1,5 +1,5 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
   "entry": ["commitlint.config.ts", "**/*.worker.ts"],
-  "ignoreDependencies": ["@commitlint/config-conventional", "tailwindcss"]
+  "ignoreDependencies": ["@commitlint/config-conventional", "tailwindcss", "tw-animate-css"]
 }
