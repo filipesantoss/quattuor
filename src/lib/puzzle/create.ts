@@ -38,7 +38,6 @@ export function create(): Game {
     created.add(entry);
     const solutions = solve(game);
     if (solutions.length !== 0) {
-      console.log(solutions);
       return game;
     }
   }
