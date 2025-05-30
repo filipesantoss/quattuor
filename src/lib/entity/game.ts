@@ -45,6 +45,10 @@ export function started(this: Game): boolean {
  * Verifies whether the game is won.
  */
 export function won(this: Game): boolean {
+  if (!started.call(this)) {
+    return false;
+  }
+
   return Object.values(this.shrines).every((shrine) => shrine.claimed);
 }
 
@@ -52,6 +56,10 @@ export function won(this: Game): boolean {
  * Verifies whether the game is lost.
  */
 export function lost(this: Game): boolean {
+  if (!started.call(this)) {
+    return false;
+  }
+
   const options = scan.call(this);
   return options.length === 0;
 }
