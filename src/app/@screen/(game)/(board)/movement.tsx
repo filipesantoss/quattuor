@@ -20,7 +20,7 @@ export function Movement({
   return (
     <Button
       aria-label="Move"
-      className="grid place-content-center bg-primary motion-safe:animate-pulse focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-secondary-foreground"
+      className="grid place-content-center bg-accent border border-secondary-foreground motion-safe:animate-pulse focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-secondary-foreground"
       onClick={() => {
         dispatch(actions.move(data));
       }}
