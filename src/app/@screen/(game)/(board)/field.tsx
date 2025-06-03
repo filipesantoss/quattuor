@@ -58,7 +58,7 @@ export function Field({
           "bg-wind": data.influencer === Elements.Wind,
           "bg-secondary": shrine?.claimed ?? false,
           "bg-accent": movement !== null,
-          "border border-secondary-foreground": movement === null,
+          "border-1 border-secondary-foreground": movement === null,
           "shadow-lg shadow-primary": data.occupier === idol.id,
         })}
       >
