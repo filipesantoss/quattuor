@@ -4,7 +4,7 @@ import { resists, succumbs } from "&/entity/idol";
 import type { Shrine } from "&/entity/shrine";
 import type { Movement } from "&/entity/spirit";
 
-interface Coordinate {
+export interface Coordinate {
   /**
    * The x-axis Coordinate value.
    */
@@ -14,6 +14,20 @@ interface Coordinate {
    * The y-axis Coordinate value.
    */
   y: number;
+}
+
+/**
+ * Verifies whether the Coordinate matches the provided Coordinate.
+ */
+export function matches(this: Coordinate, coordinate: Coordinate): boolean {
+  return this.x === coordinate.x && this.y === coordinate.y;
+}
+
+/**
+ * Calculates the target Coordinates when applying a Movement.
+ */
+export function offset(this: Coordinate, movement: Movement): Coordinate {
+  return { x: this.x + movement.dx, y: this.y + movement.dy };
 }
 
 export interface Field extends Coordinate {
@@ -36,20 +50,6 @@ export interface Field extends Coordinate {
    * A reference to the Idol influencing the Field.
    */
   influencer: Idol["id"] | null;
-}
-
-/**
- * Calculates the target Coordinates when applying a Movement to the occupier of the Field.
- */
-export function offset(this: Field, movement: Movement): Coordinate {
-  return { x: this.x + movement.dx, y: this.y + movement.dy };
-}
-
-/**
- * Verifies whether the Field is located in the provided Coordinate.
- */
-export function matches(this: Field, coordinate: Coordinate): boolean {
-  return this.x === coordinate.x && this.y === coordinate.y;
 }
 
 /**

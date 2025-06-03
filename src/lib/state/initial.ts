@@ -5,7 +5,7 @@ export const SIDE = 9;
 
 export const initial: Game = {
   fields: Object.fromEntries(
-    Array.from({ length: SIDE * SIDE }).map((_, index) => {
+    Array.from({ length: SIDE ** 2 }).map((_, index) => {
       const id = index;
       const x = index % SIDE;
       const y = (index - x) / SIDE;

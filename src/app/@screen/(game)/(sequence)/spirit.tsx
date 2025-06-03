@@ -1,0 +1,81 @@
+"use client";
+
+import { cn } from "&/cn";
+import type { Coordinate } from "&/entity/field";
+import { matches, offset } from "&/entity/field";
+import { Elements } from "&/entity/idol";
+import type { Spirit as SpiritProperties } from "&/entity/spirit";
+import { useSelector } from "&/state/store";
+import { Dialog, DialogDisclosure, DialogProvider } from "@ariakit/react";
+
+export function Spirit({
+  data,
+}: {
+  data: SpiritProperties;
+}) {
+  const active = useSelector((state) => state.game.sequence.at(0));
+
+  return (
+    <DialogProvider>
+      <DialogDisclosure
+        className={cn(
+          "rounded-lg grid place-content-center border-1 border-secondary-foreground focus-visible:outline-offset-2 focus-visible:outline-2 focus-visible:outline-secondary-foreground",
+          {
+            "size-12 md:size-14 lg:size-16 text-2xl": data.id === active,
+            "size-6 md:size-8 lg:size-12": data.id !== active,
+            "bg-earth": data.master === Elements.Earth,
+            "bg-fire": data.master === Elements.Fire,
+            "bg-water": data.master === Elements.Water,
+            "bg-wind": data.master === Elements.Wind,
+          },
+        )}
+      >
+        <span className="font-noto text-black motion-safe:animate-in motion-safe:zoom-in-0">{data.kanji}</span>
+      </DialogDisclosure>
+      <Dialog className="fixed m-auto inset-0 size-fit focus-visible:outline-none">
+        <div className="grid grid-flow-col gap-8 place-items-center bg-background border-4 border-foreground rounded-lg p-4 shadow-lg">
+          <div className="grid grid-flow-row gap-2 place-items-center h-fit">
+            <span className="text-5xl font-bold">{data.kanji}</span>
+            <span className="text-xl font-semibold">{data.id}</span>
+          </div>
+          <Preview data={data} />
+        </div>
+      </Dialog>
+    </DialogProvider>
+  );
+}
+
+function Preview({
+  data,
+}: {
+  data: SpiritProperties;
+}) {
+  const side = 5;
+  const center: Coordinate = { x: ~~(side / 2), y: ~~(side / 2) };
+
+  return (
+    <div className="grid grid-columns-5 grid-rows-5 grid-flow-col gap-1 aspect-square bg-secondary">
+      {Array.from({ length: side ** 2 }).map((_, index) => {
+        const y = index % side;
+        const x = (index - y) / side;
+        const target = { x, y };
+        const base = matches.call(center, target);
+        const movement = data.movements.some((movement) => matches.call(offset.call(center, movement), target));
+
+        return (
+          <div
+            // biome-ignore lint/suspicious/noArrayIndexKey: Element order never changes.
+            key={index}
+            className={cn("border-1 border-secondary-foreground size-8", {
+              "bg-earth": base && data.master === Elements.Earth,
+              "bg-fire": base && data.master === Elements.Fire,
+              "bg-water": base && data.master === Elements.Water,
+              "bg-wind": base && data.master === Elements.Wind,
+              "bg-primary motion-safe:animate-pulse": movement,
+            })}
+          />
+        );
+      })}
+    </div>
+  );
+}

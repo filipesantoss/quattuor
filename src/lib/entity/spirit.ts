@@ -20,22 +20,22 @@ import equal from "fast-deep-equal";
  * The sixteen Creatures.
  */
 export enum Creatures {
-  Tiger = "虎",
-  Dragon = "竜",
-  Frog = "蛙",
-  Rabbit = "兎",
-  Crab = "蟹",
-  Elephant = "象",
-  Goose = "雁",
-  Rooster = "鶏",
-  Monkey = "猿",
-  Mantis = "蟷",
-  Horse = "馬",
-  Ox = "丑",
-  Crane = "鶴",
-  Boar = "猪",
-  Eel = "鰻",
-  Cobra = "蛇",
+  Tiger = "TIGER",
+  Dragon = "DRAGON",
+  Frog = "FROG",
+  Rabbit = "RABBIT",
+  Crab = "CRAB",
+  Elephant = "ELEPHANT",
+  Goose = "GOOSE",
+  Rooster = "ROOSTER",
+  Monkey = "MONKEY",
+  Mantis = "MANTIS",
+  Horse = "HORSE",
+  Ox = "OX",
+  Crane = "CRANE",
+  Boar = "BOAR",
+  Eel = "EEL",
+  Cobra = "COBRA",
 }
 
 export interface Movement {
@@ -64,6 +64,11 @@ export interface Beast {
    * The Movements performed by the Beast.
    */
   movements: Movement[];
+
+  /**
+   * The Beast's symbol.
+   */
+  kanji: string;
 }
 
 /**

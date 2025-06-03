@@ -1,7 +1,7 @@
 import { cn } from "&/cn";
 import { Elements } from "&/entity/idol";
 import type { Shrine as ShrineProperties } from "&/entity/shrine";
-import { CircleIcon } from "lucide-react";
+import { XIcon } from "lucide-react";
 
 export function Shrine({
   data,
@@ -9,12 +9,12 @@ export function Shrine({
   data: ShrineProperties;
 }) {
   return (
-    <CircleIcon
+    <XIcon
       className={cn({
-        "fill-earth": data.id === Elements.Earth,
-        "fill-fire": data.id === Elements.Fire,
-        "fill-water": data.id === Elements.Water,
-        "fill-wind": data.id === Elements.Wind,
+        "stroke-earth": data.id === Elements.Earth,
+        "stroke-fire": data.id === Elements.Fire,
+        "stroke-water": data.id === Elements.Water,
+        "stroke-wind": data.id === Elements.Wind,
       })}
     />
   );
