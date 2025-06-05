@@ -8,6 +8,9 @@ import { Button } from "@ariakit/react";
 import { PuzzleIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
+/**
+ * @see {@link https://www.w3.org/WAI/ARIA/apg/patterns/button}
+ */
 export function Sprawl() {
   const [sprawling, setSprawling] = useState(false);
   const dispatch = useDispatch();

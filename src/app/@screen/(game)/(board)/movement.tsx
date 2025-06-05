@@ -7,7 +7,7 @@ import { Button } from "@ariakit/react";
 import type { PropsWithChildren } from "react";
 
 /**
- * @see https://www.w3.org/WAI/ARIA/apg/patterns/button/
+ * @see {@link https://www.w3.org/WAI/ARIA/apg/patterns/button}
  */
 export function Movement({
   data,
