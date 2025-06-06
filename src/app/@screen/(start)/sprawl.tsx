@@ -5,7 +5,8 @@ import type { Game } from "&/entity/game";
 import { actions } from "&/state/game";
 import { useDispatch } from "&/state/store";
 import { Button } from "&/ui/button";
-import { Tooltip, TooltipAnchor, TooltipProvider } from "@ariakit/react";
+import { Tooltip } from "&/ui/tooltip";
+import { TooltipAnchor, TooltipProvider } from "@ariakit/react";
 import { PuzzleIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
@@ -26,13 +27,16 @@ export function Sprawl() {
     };
   }, [dispatch]);
 
+  const id = "sprawl";
+
   return (
     <TooltipProvider>
       <TooltipAnchor
-        render={
+        render={(props) => (
           <Button
-            label="Sprawl"
-            describedBy="sprawl-tooltip"
+            {...props}
+            aria-label="Sprawl"
+            aria-describedby={id}
             disabled={sprawling}
             className="p-2 rounded-sm text-foreground border-1 focus-visible:outline-foreground"
             onClick={() => {
@@ -46,9 +50,9 @@ export function Sprawl() {
               })}
             />
           </Button>
-        }
+        )}
       />
-      <Tooltip id="sprawl-tooltip">TOOLTIP</Tooltip>
+      <Tooltip id={id}>CHANGEME</Tooltip>
     </TooltipProvider>
   );
 }

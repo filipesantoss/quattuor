@@ -11,7 +11,7 @@ export function Rewind() {
 
   return (
     <Button
-      label="Rewind"
+      aria-label="Rewind"
       disabled={!enabled}
       className="p-2 rounded-sm text-secondary-foreground focus-visible:outline-secondary-foreground"
       onClick={() => {

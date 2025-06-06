@@ -16,7 +16,7 @@ export function Movement({
 
   return (
     <Button
-      label="Move"
+      aria-label="Move"
       className="grid place-content-center bg-accent border-1 border-secondary-foreground motion-safe:animate-pulse focus-visible:outline-secondary-foreground"
       onClick={() => {
         dispatch(actions.move(data));

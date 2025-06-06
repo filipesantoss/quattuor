@@ -18,7 +18,7 @@ export function Dialog({
   return (
     <Primitive
       aria-label={label}
-      // aria-modal
+      aria-modal
       className="fixed m-auto inset-0 size-fit focus-visible:outline-none"
       backdrop={<div className="bg-background/75" />}
     >

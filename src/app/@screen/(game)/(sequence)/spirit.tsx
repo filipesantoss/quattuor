@@ -20,9 +20,10 @@ export function Spirit({
   return (
     <DialogProvider>
       <DialogDisclosure
-        render={
+        render={(props) => (
           <Button
-            label={data.id}
+            {...props}
+            aria-label={data.id}
             className={cn(
               "grid place-content-center rounded-lg border-1 border-secondary-foreground focus-visible:outline-secondary-foreground",
               {
@@ -37,7 +38,7 @@ export function Spirit({
           >
             <span className="font-noto text-black motion-safe:animate-in motion-safe:zoom-in-0">{data.kanji}</span>
           </Button>
-        }
+        )}
       />
       <Dialog className="grid-flow-col gap-8" label="Spirit">
         <div className="grid grid-flow-row gap-2 place-items-center h-fit">

@@ -16,14 +16,15 @@ export function Learn({
   return (
     <DialogProvider>
       <DialogDisclosure
-        render={
+        render={(props) => (
           <Button
-            label="Learn"
+            {...props}
+            aria-label="Learn"
             className={cn("p-2 rounded-sm text-foreground focus-visible:outline-foreground", className)}
           >
             <InfoIcon />
           </Button>
-        }
+        )}
       />
       <Dialog className="w-xs md:w-lg text-center" label="Learn">
         <Carousel label="Manual">
