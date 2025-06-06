@@ -52,7 +52,7 @@ export function Sprawl() {
           </Button>
         )}
       />
-      <Tooltip id={id}>CHANGEME</Tooltip>
+      <Tooltip id={id}>Click to generate a puzzle with a fresh layout.</Tooltip>
     </TooltipProvider>
   );
 }

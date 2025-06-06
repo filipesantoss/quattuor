@@ -1,10 +1,10 @@
 "use client";
 
+import { Button } from "&/ui/button";
 import useEmblaCarousel from "embla-carousel-react";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import type { ComponentProps, PropsWithChildren } from "react";
 import { Children } from "react";
-import { Button } from "./button";
 
 /**
  * @see {@link https://www.w3.org/WAI/ARIA/apg/patterns/carousel}
@@ -29,7 +29,6 @@ export function Carousel({
               aria-atomic={false}
               aria-live="polite"
               className="flex items-center justify-center grow-0 shrink-0 basis-full min-w-0"
-              style={{ wordBreak: "break-word" }}
             >
               {child}
             </fieldset>

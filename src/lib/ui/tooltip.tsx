@@ -15,7 +15,7 @@ export function Tooltip({
   return (
     <Primitive
       id={id}
-      className="grid place-items-center bg-primary border-4 border-accent-foreground text-primary-foreground rounded-lg p-4 shadow-lg"
+      className="grid place-items-center bg-primary border-4 border-accent-foreground text-sm text-primary-foreground rounded-lg p-4 shadow-lg max-w-xs md:max-w-lg"
     >
       <TooltipArrow className="[&>svg]:fill-primary [&>svg]:stroke-accent-foreground" />
       {children}
