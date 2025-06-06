@@ -3,9 +3,9 @@
 import { DefeatScreen } from "%/@screen/(defeat)/screen";
 import { GameScreen } from "%/@screen/(game)/screen";
 import { StartScreen } from "%/@screen/(start)/screen";
+import { VictoryScreen } from "%/@screen/(victory)/screen";
 import { lost, started, won } from "&/entity/game";
 import { useSelector } from "&/state/store";
-import { VictoryScreen } from "./(victory)/screen";
 
 export default function Screen() {
   const playing = useSelector((state) => started.call(state.game));

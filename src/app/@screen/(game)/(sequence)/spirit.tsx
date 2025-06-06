@@ -6,8 +6,12 @@ import { matches, offset } from "&/entity/field";
 import { Elements } from "&/entity/idol";
 import type { Spirit as SpiritProperties } from "&/entity/spirit";
 import { useSelector } from "&/state/store";
-import { Dialog, DialogDisclosure, DialogProvider } from "@ariakit/react";
+import { Modal } from "&/ui/modal";
+import { DialogDisclosure, DialogProvider } from "@ariakit/react";
 
+/**
+ * @see {@link https://www.w3.org/WAI/ARIA/apg/patterns/button}
+ */
 export function Spirit({
   data,
 }: {
@@ -18,6 +22,7 @@ export function Spirit({
   return (
     <DialogProvider>
       <DialogDisclosure
+        aria-label={data.id}
         className={cn(
           "rounded-lg grid place-content-center border-1 border-secondary-foreground focus-visible:outline-offset-2 focus-visible:outline-2 focus-visible:outline-secondary-foreground",
           {
@@ -32,15 +37,13 @@ export function Spirit({
       >
         <span className="font-noto text-black motion-safe:animate-in motion-safe:zoom-in-0">{data.kanji}</span>
       </DialogDisclosure>
-      <Dialog className="fixed m-auto inset-0 size-fit focus-visible:outline-none">
-        <div className="grid grid-flow-col gap-8 place-items-center bg-background border-4 border-foreground rounded-lg p-4 shadow-lg">
-          <div className="grid grid-flow-row gap-2 place-items-center h-fit">
-            <span className="text-5xl font-bold">{data.kanji}</span>
-            <span className="text-xl font-semibold">{data.id}</span>
-          </div>
-          <Preview data={data} />
+      <Modal className="grid-flow-col gap-8" label="Spirit">
+        <div className="grid grid-flow-row gap-2 place-items-center h-fit">
+          <span className="text-5xl font-bold">{data.kanji}</span>
+          <span className="text-xl font-semibold capitalize">{data.id}</span>
         </div>
-      </Dialog>
+        <Preview data={data} />
+      </Modal>
     </DialogProvider>
   );
 }

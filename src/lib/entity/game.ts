@@ -24,7 +24,7 @@ import { initial } from "&/state/initial";
 import equal from "fast-deep-equal";
 
 /**
- * @see https://redux.js.org/usage/structuring-reducers/normalizing-state-shape
+ * @see {@link https://redux.js.org/usage/structuring-reducers/normalizing-state-shape}
  */
 export interface Game {
   idols: Record<Idol["id"], Idol>;
