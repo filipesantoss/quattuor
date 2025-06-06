@@ -20,7 +20,7 @@ export function Modal({
       aria-label={label}
       aria-modal
       className="fixed m-auto inset-0 size-fit focus-visible:outline-none"
-      backdrop={<div className="bg-background/40" />}
+      backdrop={<div className="bg-background/75" />}
     >
       <div
         className={twMerge(

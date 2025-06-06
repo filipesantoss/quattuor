@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "&/cn";
 import { Button } from "@ariakit/react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
@@ -18,37 +19,39 @@ export function Carousel({
   const [carousel, api] = useEmblaCarousel({ loop: true });
 
   return (
-    <section
-      aria-label={label}
-      aria-roledescription="carousel"
-      className="w-full grid grid-flow-col place-items-center place-content-between"
-    >
-      <Arrow
-        label="Previous"
-        onClick={() => {
-          api?.scrollPrev();
-        }}
-      >
-        <ArrowLeftIcon />
-      </Arrow>
-      <div ref={carousel} className="max-w-full overflow-hidden">
+    <section aria-label={label} aria-roledescription="carousel" className="grid grid-flow-row gap-4">
+      <div ref={carousel} className="overflow-hidden">
         <fieldset aria-roledescription="slide" aria-atomic={false} aria-live="polite" className="flex">
           {Children.toArray(children).map((child, index) => (
-            // biome-ignore lint/suspicious/noArrayIndexKey: No unique identifier.
-            <div key={index} className="flex grow-0 shrink-0 basis-full" style={{ wordBreak: "break-word" }}>
+            <div
+              // biome-ignore lint/suspicious/noArrayIndexKey: No unique identifier.
+              key={index}
+              className="flex items-center justify-center grow-0 shrink-0 basis-full min-w-0"
+              style={{ wordBreak: "break-word" }}
+            >
               {child}
             </div>
           ))}
         </fieldset>
       </div>
-      <Arrow
-        label="Next"
-        onClick={() => {
-          api?.scrollNext();
-        }}
-      >
-        <ArrowRightIcon />
-      </Arrow>
+      <div className="grid grid-flow-col place-content-end gap-2">
+        <Arrow
+          label="Previous"
+          onClick={() => {
+            api?.scrollPrev();
+          }}
+        >
+          <ArrowLeftIcon />
+        </Arrow>
+        <Arrow
+          label="Next"
+          onClick={() => {
+            api?.scrollNext();
+          }}
+        >
+          <ArrowRightIcon />
+        </Arrow>
+      </div>
     </section>
   );
 }
@@ -57,16 +60,21 @@ export function Carousel({
  */
 function Arrow({
   label,
+  className,
   onClick,
   children,
 }: PropsWithChildren<{
   label: ComponentProps<typeof Button>["aria-label"];
+  className?: ComponentProps<typeof Button>["className"];
   onClick: ComponentProps<typeof Button>["onClick"];
 }>) {
   return (
     <Button
       aria-label={label}
-      className="p-4 focus-visible:outline-2 focus-visible:outline-secondary-foreground focus-visible:outline-offset-2 rounded-sm [&>svg:only]:size-4"
+      className={cn(
+        "border-1 rounded-full focus-visible:outline-2 focus-visible:outline-secondary-foreground focus-visible:outline-offset-2 [&>svg:only]:size-5",
+        className,
+      )}
       onClick={onClick}
     >
       {children}

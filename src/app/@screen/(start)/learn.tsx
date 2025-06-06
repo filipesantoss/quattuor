@@ -1,11 +1,5 @@
 "use client";
 
-import { Claiming } from "%/@screen/(start)/(manual)/claiming";
-import { Influencing } from "%/@screen/(start)/(manual)/influencing";
-import { Moving } from "%/@screen/(start)/(manual)/moving";
-import { Restraining } from "%/@screen/(start)/(manual)/restraining";
-import { Rewinding } from "%/@screen/(start)/(manual)/rewinding";
-import { Stepping } from "%/@screen/(start)/(manual)/stepping";
 import { cn } from "&/cn";
 import { Carousel } from "&/ui/carousel";
 import { Modal } from "&/ui/modal";
@@ -32,14 +26,25 @@ export function Learn({
       >
         <InfoIcon />
       </DialogDisclosure>
-      <Modal className="w-xs md:w-lg" label="Learn">
+      <Modal className="w-xs md:w-lg text-center" label="Learn">
         <Carousel label="Manual">
-          <Stepping />
-          <Moving />
-          <Restraining />
-          <Influencing />
-          <Claiming />
-          <Rewinding />
+          <strong>Pay attention to the possession sequence!</strong>
+          <span>At the start of each turn, an idol is possessed by a beast.</span>
+          <span>The beast determines how the idol can move.</span>
+          <strong>When an idol moves, it exerts its influence!</strong>
+          <span>Once it moves to a new field, its turn ends.</span>
+          <span>But if it moves onto a field under its influence, it can move again.</span>
+          <strong>Don&apos;t let your idols be restrained!</strong>
+          <span>If an idol cannot make a move on its turn, the game is over.</span>
+          <strong>An idol&apos;s influence protects itself!</strong>
+          <span>Idols cannot move into fields under stronger opposing influence.</span>
+          <span>Each time an idol moves, it extends its influence to nearby fields.</span>
+          <strong>Free your idols!</strong>
+          <span>Guide each idol to its shrine.</span>
+          <span>Once an idol claims its shrine, it will no longer move.</span>
+          <span>Once all idols have claimed their shrines, you win.</span>
+          <strong>Made a mistake?</strong>
+          <span>Rewind time to undo your last move and try a new approach.</span>
         </Carousel>
       </Modal>
     </DialogProvider>
