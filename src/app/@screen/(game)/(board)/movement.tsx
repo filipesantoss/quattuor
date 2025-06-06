@@ -3,12 +3,9 @@
 import type { Movement as MovementProperties } from "&/entity/spirit";
 import { actions } from "&/state/game";
 import { useDispatch } from "&/state/store";
-import { Button } from "@ariakit/react";
+import { Button } from "&/ui/button";
 import type { PropsWithChildren } from "react";
 
-/**
- * @see {@link https://www.w3.org/WAI/ARIA/apg/patterns/button}
- */
 export function Movement({
   data,
   children,
@@ -19,8 +16,8 @@ export function Movement({
 
   return (
     <Button
-      aria-label="Move"
-      className="grid place-content-center bg-accent border-1 border-secondary-foreground motion-safe:animate-pulse focus-visible:outline-2 focus-visible:outline-secondary-foreground focus-visible:outline-offset-2"
+      label="Move"
+      className="grid place-content-center bg-accent border-1 border-secondary-foreground motion-safe:animate-pulse focus-visible:outline-secondary-foreground"
       onClick={() => {
         dispatch(actions.move(data));
       }}

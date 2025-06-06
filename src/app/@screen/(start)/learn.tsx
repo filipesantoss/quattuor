@@ -1,15 +1,13 @@
 "use client";
 
 import { cn } from "&/cn";
+import { Button } from "&/ui/button";
 import { Carousel } from "&/ui/carousel";
-import { Modal } from "&/ui/modal";
+import { Dialog } from "&/ui/dialog";
 import { DialogDisclosure, DialogProvider } from "@ariakit/react";
 import { InfoIcon } from "lucide-react";
 import type { ComponentProps } from "react";
 
-/**
- * @see {@link https://www.w3.org/WAI/ARIA/apg/patterns/button}
- */
 export function Learn({
   className,
 }: {
@@ -18,15 +16,16 @@ export function Learn({
   return (
     <DialogProvider>
       <DialogDisclosure
-        aria-label="Learn"
-        className={cn(
-          "focus-visible:outline-2 focus-visible:outline-foreground focus-visible:outline-offset-2 rounded-sm text-foreground disabled:opacity-25 p-2 grid grid-flow-col gap-x-2",
-          className,
-        )}
-      >
-        <InfoIcon />
-      </DialogDisclosure>
-      <Modal className="w-xs md:w-lg text-center" label="Learn">
+        render={
+          <Button
+            label="Learn"
+            className={cn("p-2 rounded-sm text-foreground focus-visible:outline-foreground", className)}
+          >
+            <InfoIcon />
+          </Button>
+        }
+      />
+      <Dialog className="w-xs md:w-lg text-center" label="Learn">
         <Carousel label="Manual">
           <strong>Pay attention to the possession sequence!</strong>
           <span>At the start of each turn, an idol is possessed by a beast.</span>
@@ -46,7 +45,7 @@ export function Learn({
           <strong>Made a mistake?</strong>
           <span>Rewind time to undo your last move and try a new approach.</span>
         </Carousel>
-      </Modal>
+      </Dialog>
     </DialogProvider>
   );
 }
