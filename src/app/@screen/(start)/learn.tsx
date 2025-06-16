@@ -14,8 +14,6 @@ export function Learn({
 }: {
   className?: ComponentProps<typeof DialogDisclosure>["className"];
 }) {
-  const id = "learn";
-
   return (
     <TooltipProvider>
       <DialogProvider>
@@ -27,8 +25,8 @@ export function Learn({
               render={(props) => (
                 <Button
                   {...props}
-                  aria-describedby={id}
                   aria-label="Learn"
+                  aria-describedby="learn"
                   className={cn("p-2 rounded-sm text-foreground focus-visible:outline-foreground", className)}
                 >
                   <InfoIcon />
@@ -37,7 +35,9 @@ export function Learn({
             />
           )}
         />
-        <Tooltip id={id}>Click to walk through the basic game mechanics.</Tooltip>
+        <Tooltip id="learn">
+          <span>Click to walk through the basic game mechanics.</span>
+        </Tooltip>
         <Dialog className="w-xs md:w-lg text-center" label="Learn">
           <Carousel label="Manual">
             <strong>Pay attention to the possession sequence!</strong>

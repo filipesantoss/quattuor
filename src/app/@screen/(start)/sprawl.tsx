@@ -27,8 +27,6 @@ export function Sprawl() {
     };
   }, [dispatch]);
 
-  const id = "sprawl";
-
   return (
     <TooltipProvider>
       <TooltipAnchor
@@ -36,7 +34,7 @@ export function Sprawl() {
           <Button
             {...props}
             aria-label="Sprawl"
-            aria-describedby={id}
+            aria-describedby="sprawl"
             disabled={sprawling}
             className="p-2 rounded-sm text-foreground border-1 focus-visible:outline-foreground"
             onClick={() => {
@@ -52,7 +50,9 @@ export function Sprawl() {
           </Button>
         )}
       />
-      <Tooltip id={id}>Click to generate a puzzle with a fresh layout.</Tooltip>
+      <Tooltip id="sprawl">
+        <span>Click to generate a puzzle with a fresh layout.</span>
+      </Tooltip>
     </TooltipProvider>
   );
 }

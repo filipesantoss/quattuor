@@ -8,7 +8,8 @@ import type { Spirit as SpiritProperties } from "&/entity/spirit";
 import { useSelector } from "&/state/store";
 import { Button } from "&/ui/button";
 import { Dialog } from "&/ui/dialog";
-import { DialogDisclosure, DialogProvider } from "@ariakit/react";
+import { Tooltip } from "&/ui/tooltip";
+import { DialogDisclosure, DialogProvider, TooltipAnchor, TooltipProvider } from "@ariakit/react";
 
 export function Spirit({
   data,
@@ -18,36 +19,50 @@ export function Spirit({
   const active = useSelector((state) => state.game.sequence.at(0));
 
   return (
-    <DialogProvider>
-      <DialogDisclosure
-        render={(props) => (
-          <Button
-            {...props}
-            aria-label={data.id}
-            className={cn(
-              "grid place-content-center rounded-lg border-1 border-secondary-foreground focus-visible:outline-secondary-foreground",
-              {
-                "size-12 md:size-14 lg:size-16 text-2xl": data.id === active,
-                "size-6 md:size-8 lg:size-12": data.id !== active,
-                "bg-earth": data.master === Elements.Earth,
-                "bg-fire": data.master === Elements.Fire,
-                "bg-water": data.master === Elements.Water,
-                "bg-wind": data.master === Elements.Wind,
-              },
-            )}
-          >
-            <span className="font-noto text-black motion-safe:animate-in motion-safe:zoom-in-0">{data.kanji}</span>
-          </Button>
-        )}
-      />
-      <Dialog className="grid-flow-col gap-8" label="Spirit">
-        <div className="grid grid-flow-row gap-2 place-items-center h-fit">
-          <span className="text-5xl font-bold">{data.kanji}</span>
-          <span className="text-xl font-semibold capitalize">{data.id}</span>
-        </div>
-        <Preview data={data} />
-      </Dialog>
-    </DialogProvider>
+    <TooltipProvider>
+      <DialogProvider>
+        <TooltipAnchor
+          render={({ autoFocus = false, ...props }) => (
+            <DialogDisclosure
+              {...props}
+              autoFocus={autoFocus}
+              render={(props) => (
+                <Button
+                  {...props}
+                  aria-label={data.id}
+                  aria-describedby={data.id}
+                  className={cn(
+                    "grid place-content-center rounded-lg border-1 border-secondary-foreground focus-visible:outline-secondary-foreground",
+                    {
+                      "size-12 md:size-14 lg:size-16 text-2xl": data.id === active,
+                      "size-6 md:size-8 lg:size-12": data.id !== active,
+                      "bg-earth": data.master === Elements.Earth,
+                      "bg-fire": data.master === Elements.Fire,
+                      "bg-water": data.master === Elements.Water,
+                      "bg-wind": data.master === Elements.Wind,
+                    },
+                  )}
+                >
+                  <span className="font-noto text-black motion-safe:animate-in motion-safe:zoom-in-0">
+                    {data.kanji}
+                  </span>
+                </Button>
+              )}
+            />
+          )}
+        />
+        <Tooltip id={data.id}>
+          <span>Click for details on the {data.id} spirit.</span>
+        </Tooltip>
+        <Dialog className="grid-flow-col gap-8" label="Spirit">
+          <div className="grid grid-flow-row gap-2 place-items-center h-fit">
+            <span className="text-5xl font-bold">{data.kanji}</span>
+            <span className="text-xl font-semibold capitalize">{data.id}</span>
+          </div>
+          <Preview data={data} />
+        </Dialog>
+      </DialogProvider>
+    </TooltipProvider>
   );
 }
 
