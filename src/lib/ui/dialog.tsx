@@ -1,22 +1,22 @@
 "use client";
 
-import { Dialog } from "@ariakit/react";
+import { Dialog as Primitive } from "@ariakit/react";
 import type { ComponentProps, PropsWithChildren } from "react";
 import { twMerge } from "tailwind-merge";
 
 /**
  * @see {@link https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal}
  */
-export function Modal({
+export function Dialog({
   label,
   className,
   children,
 }: PropsWithChildren<{
-  label: ComponentProps<"div">["className"];
-  className: ComponentProps<typeof Dialog>["aria-label"];
+  label: NonNullable<ComponentProps<"div">["aria-label"]>;
+  className: ComponentProps<"div">["className"];
 }>) {
   return (
-    <Dialog
+    <Primitive
       aria-label={label}
       aria-modal
       className="fixed m-auto inset-0 size-fit focus-visible:outline-none"
@@ -30,6 +30,6 @@ export function Modal({
       >
         {children}
       </div>
-    </Dialog>
+    </Primitive>
   );
 }

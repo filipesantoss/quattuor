@@ -16,10 +16,10 @@
  * The four Elements.
  */
 export enum Elements {
-  Fire = "FIRE",
-  Water = "WATER",
-  Earth = "EARTH",
-  Wind = "WIND",
+  Fire = "Fire",
+  Water = "Water",
+  Earth = "Earth",
+  Wind = "Wind",
 }
 
 export interface Idol {
