@@ -22,13 +22,13 @@ export function Spirit({
     <TooltipProvider>
       <DialogProvider>
         <TooltipAnchor
-          render={({ autoFocus = false, ...props }) => (
+          render={(properties) => (
             <DialogDisclosure
-              {...props}
-              autoFocus={autoFocus}
-              render={(props) => (
+              {...properties}
+              autoFocus={properties.autoFocus ?? false}
+              render={(properties) => (
                 <Button
-                  {...props}
+                  {...properties}
                   aria-label={data.id}
                   aria-describedby={data.id}
                   className={cn(
@@ -52,7 +52,7 @@ export function Spirit({
           )}
         />
         <Tooltip id={data.id}>
-          <span>Click for details on the {data.id} spirit.</span>
+          <span>Details on the {data.id} spirit.</span>
         </Tooltip>
         <Dialog className="grid-flow-col gap-8" label="Spirit">
           <div className="grid grid-flow-row gap-2 place-items-center h-fit">

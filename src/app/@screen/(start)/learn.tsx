@@ -18,13 +18,13 @@ export function Learn({
     <TooltipProvider>
       <DialogProvider>
         <TooltipAnchor
-          render={({ autoFocus = false, ...props }) => (
+          render={(properties) => (
             <DialogDisclosure
-              {...props}
-              autoFocus={autoFocus}
-              render={(props) => (
+              {...properties}
+              autoFocus={properties.autoFocus ?? false}
+              render={(properties) => (
                 <Button
-                  {...props}
+                  {...properties}
                   aria-label="Learn"
                   aria-describedby="learn"
                   className={cn("p-2 rounded-sm text-foreground focus-visible:outline-foreground", className)}
@@ -36,7 +36,7 @@ export function Learn({
           )}
         />
         <Tooltip id="learn">
-          <span>Click to walk through the basic game mechanics.</span>
+          <span>Walk through the basic game mechanics.</span>
         </Tooltip>
         <Dialog className="w-xs md:w-lg text-center" label="Learn">
           <Carousel label="Manual">

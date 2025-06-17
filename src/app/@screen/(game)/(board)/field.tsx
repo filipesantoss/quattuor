@@ -33,12 +33,12 @@ export function Field({
   }, [movement, shrine]);
 
   const children = useMemo(() => {
-    if (occupier !== null) {
-      return <Idol data={occupier} />;
-    }
-
     if (shrine !== null) {
       return <Shrine data={shrine} />;
+    }
+
+    if (occupier !== null) {
+      return <Idol data={occupier} />;
     }
 
     if (movement !== null) {
@@ -56,7 +56,7 @@ export function Field({
           "bg-fire": data.influencer === Elements.Fire,
           "bg-water": data.influencer === Elements.Water,
           "bg-wind": data.influencer === Elements.Wind,
-          "bg-secondary": shrine?.claimed ?? false,
+          "bg-background": shrine?.claimed ?? false,
           "bg-accent": movement !== null,
           "border-1 border-secondary-foreground": movement === null,
           "shadow-lg shadow-primary": data.occupier === idol.id,

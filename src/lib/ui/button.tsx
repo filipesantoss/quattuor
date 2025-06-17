@@ -10,11 +10,11 @@ export function Button({
   className,
   autoFocus = false,
   children,
-  ...props
+  ...properties
 }: ComponentProps<"button">) {
   return (
     <Primitive
-      {...props}
+      {...properties}
       disabled={disabled}
       autoFocus={autoFocus}
       className={cn(

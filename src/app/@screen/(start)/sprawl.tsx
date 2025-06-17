@@ -30,9 +30,9 @@ export function Sprawl() {
   return (
     <TooltipProvider>
       <TooltipAnchor
-        render={(props) => (
+        render={(properties) => (
           <Button
-            {...props}
+            {...properties}
             aria-label="Sprawl"
             aria-describedby="sprawl"
             disabled={sprawling}
@@ -51,7 +51,7 @@ export function Sprawl() {
         )}
       />
       <Tooltip id="sprawl">
-        <span>Click to generate a puzzle with a fresh layout.</span>
+        <span>Generate a new puzzle.</span>
       </Tooltip>
     </TooltipProvider>
   );

@@ -10,12 +10,13 @@ import { UndoIcon } from "lucide-react";
 export function Rewind() {
   const dispatch = useDispatch();
   const enabled = useSelector((state) => state.timeline.length > 1);
+
   return (
     <TooltipProvider>
       <TooltipAnchor
-        render={(props) => (
+        render={(properties) => (
           <Button
-            {...props}
+            {...properties}
             aria-label="Rewind"
             aria-describedby="rewind"
             disabled={!enabled}
@@ -28,7 +29,7 @@ export function Rewind() {
           </Button>
         )}
       />
-      <Tooltip id="rewind">Click to undo your last movement.</Tooltip>
+      <Tooltip id="rewind">Undo your last movement.</Tooltip>
     </TooltipProvider>
   );
 }
