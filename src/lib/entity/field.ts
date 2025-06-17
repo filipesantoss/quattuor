@@ -1,6 +1,5 @@
 import { assert } from "&/assert";
 import type { Idol } from "&/entity/idol";
-import { resists, succumbs } from "&/entity/idol";
 import type { Shrine } from "&/entity/shrine";
 import type { Movement } from "&/entity/spirit";
 
@@ -74,11 +73,7 @@ export function accepts(this: Field, idol: Idol): boolean {
     return false;
   }
 
-  if (this.influencer === null) {
-    return true;
-  }
-
-  return !succumbs.call(idol, this.influencer);
+  return this.influencer === null || this.influencer === idol.id;
 }
 
 /**
@@ -104,15 +99,15 @@ export function leave(this: Field, idol: Idol): void {
  */
 export function enter(this: Field, idol: Idol): void {
   assert(accepts.call(this, idol));
-  this.occupier = idol.id;
   influence.call(this, idol);
+  this.occupier = idol.id;
 }
 
 /**
  * Attemps to have the provided Idol influence the Field.
  */
 export function influence(this: Field, idol: Idol): void {
-  if (this.influencer === null || resists.call(idol, this.influencer)) {
+  if (accepts.call(this, idol)) {
     this.influencer = idol.id;
   }
 }
