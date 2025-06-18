@@ -25,7 +25,7 @@ export default function Root({
         <title>quattuor</title>
       </head>
       <body
-        className={`antialiased ${geist.variable} bg-background text-foreground h-dvh w-dvw grid place-content-center`}
+        className={`antialiased ${geist.variable} bg-background text-foreground h-dvh w-dvw grid place-content-center font-sans`}
       >
         <StoreProvider>{screen}</StoreProvider>
       </body>
