@@ -2,16 +2,19 @@ import { assert } from "&/assert";
 import { decode } from "&/encoding";
 import type { Game } from "&/entity/game";
 import * as game from "&/state/game";
+import * as puzzles from "&/state/puzzles";
 import * as timeline from "&/state/timeline";
 import { combineReducers, configureStore, createListenerMiddleware } from "@reduxjs/toolkit";
 import equal from "fast-deep-equal";
 import { useDispatch as useReduxDispacth, useSelector as useReduxSelector } from "react-redux";
-import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistReducer } from "redux-persist";
+import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, createMigrate, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { manifest } from "./migrations";
 
 type State = {
   game: ReturnType<typeof game.reducer>;
   timeline: ReturnType<typeof timeline.reducer>;
+  puzzles: ReturnType<typeof puzzles.reducer>;
 };
 
 export function create() {
@@ -20,10 +23,12 @@ export function create() {
       key: "quattuor",
       version: 0,
       storage,
+      migrate: createMigrate(manifest),
     },
     combineReducers({
       game: game.reducer,
       timeline: timeline.reducer,
+      puzzles: puzzles.reducer,
     }),
   );
 
