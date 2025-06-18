@@ -9,7 +9,7 @@ export const manifest = {
 
     return {
       ...state,
-      puzzles: data.slice(0, 30).map((game) => ({ active: false, beaten: false, game })),
+      puzzles: Object.fromEntries(data.slice(0, 30).map((game) => [game, { active: false, beaten: false }])),
     };
   },
 } satisfies MigrationManifest;

@@ -73,9 +73,6 @@ export const { reducer, selectors, actions } = createSlice({
     },
   },
   reducers: {
-    sprawl(state, action: PayloadAction<Game>) {
-      Object.assign(state, action.payload);
-    },
     move(state, action: PayloadAction<Movement>) {
       step.call(state, action.payload);
     },

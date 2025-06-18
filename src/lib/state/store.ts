@@ -1,6 +1,7 @@
 import { assert } from "&/assert";
 import { decode } from "&/encoding";
 import type { Game } from "&/entity/game";
+import { lost, won } from "&/entity/game";
 import * as game from "&/state/game";
 import * as puzzles from "&/state/puzzles";
 import * as timeline from "&/state/timeline";
@@ -35,10 +36,11 @@ export function create() {
   const listener = createListenerMiddleware<State>();
 
   listener.startListening({
-    actionCreator: game.actions.sprawl,
-    effect: async (_, api) => {
-      const state = api.getState();
-      api.dispatch(timeline.actions.reset(state.game));
+    actionCreator: puzzles.actions.activate,
+    effect: async (action, api) => {
+      const payload = decode<Game>(action.payload);
+      api.dispatch(game.actions.load(payload));
+      api.dispatch(timeline.actions.reset(payload));
     },
   });
 
@@ -47,6 +49,14 @@ export function create() {
     effect: async (_, api) => {
       const state = api.getState();
       api.dispatch(timeline.actions.add(state.game));
+
+      if (won.call(state.game)) {
+        api.dispatch(puzzles.actions.win());
+      }
+
+      if (lost.call(state.game)) {
+        api.dispatch(puzzles.actions.lose());
+      }
     },
   });
 
