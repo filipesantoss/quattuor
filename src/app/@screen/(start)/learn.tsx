@@ -5,37 +5,31 @@ import { Button } from "&/ui/button";
 import { Carousel } from "&/ui/carousel";
 import { Dialog } from "&/ui/dialog";
 import { Tooltip } from "&/ui/tooltip";
-import { DialogDisclosure, DialogProvider } from "@ariakit/react";
+import { DialogTrigger } from "@radix-ui/react-dialog";
 import { InfoIcon } from "lucide-react";
 import type { ComponentProps } from "react";
 
 export function Learn({
   className,
 }: {
-  className?: ComponentProps<typeof DialogDisclosure>["className"];
+  className?: ComponentProps<typeof Button>["className"];
 }) {
   return (
-    <DialogProvider>
+    <Dialog>
       <Tooltip>
         <Tooltip.Trigger asChild>
-          <DialogDisclosure
-            render={(properties) => (
-              <Button
-                {...properties}
-                aria-label="Learn"
-                aria-describedby="learn"
-                className={cn("bg-transparent p-2 rounded-sm", className)}
-              >
-                <InfoIcon />
-              </Button>
-            )}
-          />
+          <DialogTrigger asChild>
+            <Button aria-label="Learn" className={cn("bg-transparent p-2 rounded-sm", className)}>
+              <InfoIcon />
+            </Button>
+          </DialogTrigger>
         </Tooltip.Trigger>
         <Tooltip.Content>
           <span>Walk through the basic game mechanics.</span>
         </Tooltip.Content>
       </Tooltip>
-      <Dialog className="w-xs md:w-lg text-center" label="Learn">
+      <Dialog.Content className="w-xs md:w-lg text-center">
+        <Dialog.Title className="sr-only">Learn</Dialog.Title>
         <Carousel label="Manual">
           <strong>Pay attention to the possession sequence!</strong>
           <span>At the start of each turn, an idol is possessed by a beast.</span>
@@ -55,7 +49,7 @@ export function Learn({
           <strong>Made a mistake?</strong>
           <span>Rewind time to undo your last move and try a new approach.</span>
         </Carousel>
-      </Dialog>
-    </DialogProvider>
+      </Dialog.Content>
+    </Dialog>
   );
 }

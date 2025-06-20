@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@ariakit/react": "^0.4.17",
+    "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-tooltip": "^1.2.7",
     "@reduxjs/toolkit": "^2.8.1",
     "clone-deep": "^4.0.1",

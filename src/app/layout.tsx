@@ -2,14 +2,14 @@ import "./globals.css";
 
 import StoreProvider from "%/store.provider";
 import { cn } from "&/cn";
-import { Geist, Noto_Serif_JP } from "next/font/google";
+import { Inter, Noto_Sans } from "next/font/google";
 
-const geist = Geist({
+const sans = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
 });
 
-const noto = Noto_Serif_JP({
+const noto = Noto_Sans({
   variable: "--font-noto",
   subsets: ["latin"],
 });
@@ -26,7 +26,7 @@ export default function Root({
       </head>
       <body
         className={cn(
-          geist.variable,
+          sans.variable,
           noto.variable,
           "antialiased bg-background text-foreground h-dvh w-dvw grid place-content-center",
         )}

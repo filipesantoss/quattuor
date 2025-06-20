@@ -9,7 +9,6 @@ import { useSelector } from "&/state/store";
 import { Button } from "&/ui/button";
 import { Dialog } from "&/ui/dialog";
 import { Tooltip } from "&/ui/tooltip";
-import { DialogDisclosure, DialogProvider } from "@ariakit/react";
 
 export function Spirit({
   data,
@@ -19,41 +18,37 @@ export function Spirit({
   const active = useSelector((state) => state.game.sequence.at(0));
 
   return (
-    <DialogProvider>
+    <Dialog>
       <Tooltip>
         <Tooltip.Trigger asChild>
-          <DialogDisclosure
-            render={(properties) => (
-              <Button
-                {...properties}
-                aria-label={data.id}
-                aria-describedby={data.id}
-                className={cn("grid place-content-center rounded-lg", {
-                  "size-12 md:size-14 lg:size-16 text-2xl": data.id === active,
-                  "size-6 md:size-8 lg:size-12": data.id !== active,
-                  "bg-earth": data.master === Elements.Earth,
-                  "bg-fire": data.master === Elements.Fire,
-                  "bg-water": data.master === Elements.Water,
-                  "bg-wind": data.master === Elements.Wind,
-                })}
-              >
-                <span className="font-noto text-black motion-safe:animate-in motion-safe:zoom-in-95">{data.kanji}</span>
-              </Button>
-            )}
-          />
+          <Dialog.Trigger asChild>
+            <Button
+              aria-label={data.id}
+              className={cn("grid place-content-center rounded-lg", {
+                "size-12 md:size-14 lg:size-16 text-2xl": data.id === active,
+                "size-6 md:size-8 lg:size-12": data.id !== active,
+                "bg-earth": data.master === Elements.Earth,
+                "bg-fire": data.master === Elements.Fire,
+                "bg-water": data.master === Elements.Water,
+                "bg-wind": data.master === Elements.Wind,
+              })}
+            >
+              <span className="font-noto text-black motion-safe:animate-in motion-safe:zoom-in-95">{data.kanji}</span>
+            </Button>
+          </Dialog.Trigger>
         </Tooltip.Trigger>
         <Tooltip.Content>
           <span>Details on the {data.id} spirit.</span>
         </Tooltip.Content>
       </Tooltip>
-      <Dialog className="grid-flow-col gap-8" label="Spirit">
+      <Dialog.Content className="grid-flow-col gap-8" aria-label="Spirit">
         <div className="grid grid-flow-row gap-2 place-items-center h-fit">
-          <span className="text-5xl font-bold">{data.kanji}</span>
-          <span className="text-xl font-semibold capitalize">{data.id}</span>
+          <span className="text-5xl font-bold font-noto">{data.kanji}</span>
+          <Dialog.Title className="text-xl font-semibold capitalize">{data.id}</Dialog.Title>
         </div>
         <Preview data={data} />
-      </Dialog>
-    </DialogProvider>
+      </Dialog.Content>
+    </Dialog>
   );
 }
 
