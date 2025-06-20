@@ -38,7 +38,7 @@ export function Carousel({
       <div className="grid grid-flow-col place-content-end gap-2">
         <Button
           aria-label="Previous"
-          className="rounded-full p-1 border-1 focus-visible:outline-secondary-foreground"
+          className="rounded-full p-1"
           onClick={() => {
             api?.scrollPrev();
           }}
@@ -47,7 +47,7 @@ export function Carousel({
         </Button>
         <Button
           aria-label="Next"
-          className="rounded-full p-1 border-1 focus-visible:outline-secondary-foreground"
+          className="rounded-full p-1"
           onClick={() => {
             api?.scrollNext();
           }}
