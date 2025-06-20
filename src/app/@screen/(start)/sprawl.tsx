@@ -22,7 +22,7 @@ export function Sprawl() {
             aria-label="Sprawl"
             aria-describedby="sprawl"
             disabled={games.length === 0}
-            className="p-2 rounded-sm text-foreground border-1 focus-visible:outline-foreground"
+            className="p-2 rounded-sm"
             onClick={() => {
               const [game] = shuffle(games);
               assert(game !== undefined);

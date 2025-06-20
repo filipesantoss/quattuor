@@ -20,7 +20,7 @@ export function Rewind() {
             aria-label="Rewind"
             aria-describedby="rewind"
             disabled={!enabled}
-            className="p-2 rounded-sm text-secondary-foreground focus-visible:outline-secondary-foreground"
+            className="bg-transparent border-none p-2 rounded-sm"
             onClick={() => {
               dispatch(actions.rewind());
             }}

@@ -31,17 +31,14 @@ export function Spirit({
                   {...properties}
                   aria-label={data.id}
                   aria-describedby={data.id}
-                  className={cn(
-                    "grid place-content-center rounded-lg border-1 border-secondary-foreground focus-visible:outline-secondary-foreground",
-                    {
-                      "size-12 md:size-14 lg:size-16 text-2xl": data.id === active,
-                      "size-6 md:size-8 lg:size-12": data.id !== active,
-                      "bg-earth": data.master === Elements.Earth,
-                      "bg-fire": data.master === Elements.Fire,
-                      "bg-water": data.master === Elements.Water,
-                      "bg-wind": data.master === Elements.Wind,
-                    },
-                  )}
+                  className={cn("grid place-content-center rounded-lg", {
+                    "size-12 md:size-14 lg:size-16 text-2xl": data.id === active,
+                    "size-6 md:size-8 lg:size-12": data.id !== active,
+                    "bg-earth": data.master === Elements.Earth,
+                    "bg-fire": data.master === Elements.Fire,
+                    "bg-water": data.master === Elements.Water,
+                    "bg-wind": data.master === Elements.Wind,
+                  })}
                 >
                   <span className="font-noto text-black motion-safe:animate-in motion-safe:zoom-in-0">
                     {data.kanji}

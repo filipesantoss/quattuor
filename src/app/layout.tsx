@@ -1,6 +1,7 @@
 import "./globals.css";
 
 import StoreProvider from "%/store.provider";
+import { cn } from "&/cn";
 import { Geist, Noto_Serif_JP } from "next/font/google";
 
 const geist = Geist({
@@ -8,7 +9,6 @@ const geist = Geist({
   subsets: ["latin"],
 });
 
-// @ts-ignore: Font loaders must be assigned to a const in the module scope.
 const noto = Noto_Serif_JP({
   variable: "--font-noto",
   subsets: ["latin"],
@@ -25,7 +25,11 @@ export default function Root({
         <title>quattuor</title>
       </head>
       <body
-        className={`antialiased ${geist.variable} bg-background text-foreground h-dvh w-dvw grid place-content-center font-sans`}
+        className={cn(
+          geist.variable,
+          noto.variable,
+          "antialiased bg-background text-foreground h-dvh w-dvw grid place-content-center",
+        )}
       >
         <StoreProvider>{screen}</StoreProvider>
       </body>

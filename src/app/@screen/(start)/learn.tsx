@@ -27,7 +27,7 @@ export function Learn({
                   {...properties}
                   aria-label="Learn"
                   aria-describedby="learn"
-                  className={cn("p-2 rounded-sm text-foreground focus-visible:outline-foreground", className)}
+                  className={cn("bg-transparent p-2 rounded-sm", className)}
                 >
                   <InfoIcon />
                 </Button>
