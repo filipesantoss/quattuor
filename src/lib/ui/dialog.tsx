@@ -3,6 +3,9 @@
 import { cn } from "&/cn";
 import { Content, Overlay, Portal, Root, Title, Trigger } from "@radix-ui/react-dialog";
 
+/**
+ * @see {@link https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal}
+ */
 export function Dialog(properties: React.ComponentProps<typeof Root>) {
   return <Root {...properties} />;
 }
