@@ -15,7 +15,6 @@ export function Rewind() {
       <Tooltip.Trigger asChild>
         <Button
           aria-label="Rewind"
-          aria-describedby="rewind"
           disabled={!enabled}
           className="bg-transparent border-none p-2 rounded-sm"
           onClick={() => {

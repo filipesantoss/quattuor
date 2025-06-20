@@ -15,13 +15,11 @@ export function Movement({
 }>) {
   const dispatch = useDispatch();
 
-  const id = `(${data.dx},${data.dy})`;
   return (
     <Tooltip>
       <Tooltip.Trigger asChild>
         <Button
           aria-label="Move"
-          aria-describedby={id}
           className="grid place-content-center bg-accent motion-safe:animate-pulse"
           onClick={() => {
             dispatch(actions.move(data));
