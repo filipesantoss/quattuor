@@ -3,22 +3,17 @@
 import { Button } from "&/ui/button";
 import useEmblaCarousel from "embla-carousel-react";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-import type { ComponentProps, PropsWithChildren } from "react";
+import type { ComponentProps } from "react";
 import { Children } from "react";
 
 /**
  * @see {@link https://www.w3.org/WAI/ARIA/apg/patterns/carousel}
  */
-export function Carousel({
-  label,
-  children,
-}: PropsWithChildren<{
-  label: NonNullable<ComponentProps<"section">["aria-label"]>;
-}>) {
+export function Carousel({ children, ...properties }: ComponentProps<"section">) {
   const [carousel, api] = useEmblaCarousel({ loop: true });
 
   return (
-    <section aria-label={label} aria-roledescription="carousel" className="grid grid-flow-row gap-4">
+    <section aria-roledescription="carousel" className="grid grid-flow-row gap-4" {...properties}>
       <div ref={carousel} className="overflow-hidden">
         <div className="flex">
           {Children.toArray(children).map((child, index) => (
