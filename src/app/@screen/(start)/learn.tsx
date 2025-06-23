@@ -29,8 +29,8 @@ export function Learn({
         </Tooltip.Content>
       </Tooltip>
       <Dialog.Content className="w-xs md:w-lg text-center">
-        <Dialog.Title className="sr-only">Learn</Dialog.Title>
-        <Carousel label="Manual">
+        <Dialog.Title className="sr-only">Manual</Dialog.Title>
+        <Carousel aria-label="Manual">
           <strong>Pay attention to the possession sequence!</strong>
           <span>At the start of each turn, an idol is possessed by a beast.</span>
           <span>The beast determines how the idol can move.</span>
